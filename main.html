@@ -9,8 +9,7 @@
   function changeBack(color)
   {
     document.body.style.background=color;
-  }
-
+  };
 </script>
 </head>
 <body>
@@ -27,7 +26,6 @@
         <select id="colors" name="Kolory" style="background-color: black; color: white">
           <option onclick="changeBack('silver')">Srebrny</option>
           <option onclick="changeBack('white')">Biały</option>
-          <option onclick="changeBack('black')">Czarny</option>
           <option onclick="changeBack('red')">Czerwony</option>
           <option onclick="changeBack('blue')">Niebieski</option>
           <option onclick="changeBack('green')">Zielony</option>
@@ -37,12 +35,11 @@
     </nav>
     
   </header>
+<div class="main">
+  <h2>Dostepne gry: </h2><br>
+  <a href="snake.html"><img src="snakelogo.jpg"></a>
+</div>
   
-  <div id="main">
-    <ul> Dostępne gry:
-      <li><a href="snake.html">Snake</a>: podczas gry kontrolujesz węża, Twoim zadaniem jest zbierać jedzenie jednocześnie starając się nie uderzyć w swoje ciało</li>
-    </ul>
-  </div>
   <footer>
     <p>
       Authors: Mateusz Dera and Dominik Oklejewicz
