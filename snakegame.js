@@ -94,6 +94,8 @@ function loop()
             s.y = yEnd-size;
           else 
             s.y -= size;
+        default: 
+          break;
       }
       //checking if snake hit itself
       for (let j=1; j<snake.length; j++) 
@@ -122,17 +124,22 @@ function checkkey(e)
   if (!directionLock) 
   {
     directionLock = true;
-    const newDirection = e.key.substr(5).toLowerCase();
-
-    //cheking if player wants to opposite direction
-    if (direction === 'left' && newDirection !== 'right') 
-        direction = newDirection;
-    if (direction === 'up' && newDirection !== 'down') 
-        direction = newDirection;
-    if (direction === 'down' && newDirection !== 'up') 
-        direction = newDirection;
-    if (direction === 'right' && newDirection !== 'left') 
-        direction = newDirection;
+    
+    
+      const newDirection = e.key.substr(5).toLowerCase();
+      if(newDirection==='right' || newDirection === 'down' || newDirection === 'up' || newDirection === 'left')
+      {
+        //cheking if player wants to opposite direction
+        if (direction === 'left' && newDirection !== 'right') 
+            direction = newDirection;
+        if (direction === 'up' && newDirection !== 'down') 
+            direction = newDirection;
+        if (direction === 'down' && newDirection !== 'up') 
+            direction = newDirection;
+        if (direction === 'right' && newDirection !== 'left') 
+            direction = newDirection;
+      }
+    
   }
 }
 //that functions draw border of the square and grid on board
