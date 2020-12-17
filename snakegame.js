@@ -24,6 +24,11 @@ function setApple()
 {
   apple.x = Math.round(random(size, canvas.width - size) / size) * size;
   apple.y = Math.round(random(size, canvas.height - size) / size) * size;
+  for (let k=0; k<snake.length; k++) 
+  {
+    if (snake[k].x === apple.x && snake[k].y === apple.y)
+      setApple();
+  }
 }
 //that function draws snake, apple and grid on the board
 function draw() 
@@ -110,7 +115,6 @@ function loop()
   }
   window.setTimeout(loop, speed);
   directionLock = false;
-  drawScore();
 }
 //function that detects what key player pressed
 function checkkey(e) 
@@ -153,12 +157,6 @@ function drawLine2(x, y)
     context.stroke();
 }
 
-function drawScore()
-{
-    context.font="16px Arial";
-    context.fillStyle="#000000";
-    context.fillText("Score"+score, 8, 14);
-}
 
 setApple();
 window.addEventListener('keydown', checkkey);
