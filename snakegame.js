@@ -1,6 +1,6 @@
-const canvas = document.getElementById('canvas');
-canvas.width = 600;     //window of the game, it's need to be a square
-canvas.height = 600;
+const canvas = document.getElementById('snakegame');
+canvas.width = 400;     //window of the game, it's need to be a square
+canvas.height = 400;
 const context = canvas.getContext('2d');
 const size = 25;    //size of the square, it's need to be a devider of width and height
 const xEnd = canvas.width    //end of each axis
@@ -127,9 +127,10 @@ function checkkey(e)
     
     
       const newDirection = e.key.substr(5).toLowerCase();
+      //checking if player pressed an arrow
       if(newDirection==='right' || newDirection === 'down' || newDirection === 'up' || newDirection === 'left')
       {
-        //cheking if player wants to opposite direction
+        //cheking if player wants to go to opposite direction
         if (direction === 'left' && newDirection !== 'right') 
             direction = newDirection;
         if (direction === 'up' && newDirection !== 'down') 
