@@ -35,7 +35,7 @@ function setApple()
 function draw() 
 {
   context.clearRect(0, 0, canvas.width, canvas.height);
-  for(let k=0;k<=24;k++)        //24==600/25
+  for(let k=0;k<=(canvas.width/size);k++)        //24==600/25
   {
       drawLine1(k*size, 0);
       drawLine2(0, k*size);
@@ -63,7 +63,10 @@ function loop()
     {
         score++;
         snake.push({});
-        setApple();
+        if(snake.length<(canvas.width/size)*(canvas.width/size))
+        {
+          setApple();
+        }
         scoreElement.innerHTML=score;
     }
 
