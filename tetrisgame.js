@@ -55,12 +55,12 @@ function random()
 
 let p=random();
 
-function Piece(tetromino, color)
+function Piece(figure, color)
 {
-    this.tetromino=tetromino;
+    this.figure=figure;
     this.color=color;
-    this.tetrominoN=0;
-    this.activeTetromino=this.tetromino[this.tetrominoN];
+    this.N=0;
+    this.activeFigure=this.figure[this.N];
 
     this.x=3;
     this.y=-2;
@@ -68,11 +68,11 @@ function Piece(tetromino, color)
 
 Piece.prototype.fill=function(color)
 {
-    for(r=0;r<this.activeTetromino.length;r++)
+    for(r=0;r<this.activeFigure.length;r++)
     {
-        for(c=0;c<this.activeTetromino.length;c++)
+        for(c=0;c<this.activeFigure.length;c++)
         {
-            if(this.activeTetromino[r][c])
+            if(this.activeFigure[r][c])
             {
                 drawSquare(this.x+c,this.y+r,color);
             }
@@ -92,7 +92,7 @@ Piece.prototype.unDraw=function()
 
 Piece.prototype.moveDown=function()
 {
-    if(!this.collision(0,1,this.activeTetromino))
+    if(!this.collision(0,1,this.activeFigure))
     {
         this.unDraw();
         this.y++;
@@ -107,7 +107,7 @@ Piece.prototype.moveDown=function()
 
 Piece.prototype.moveRight=function()
 {
-    if(!this.collision(1,0,this.activeTetromino))
+    if(!this.collision(1,0,this.activeFigure))
     {
         this.unDraw();
         this.x++;
@@ -117,7 +117,7 @@ Piece.prototype.moveRight=function()
 
 Piece.prototype.moveLeft=function()
 {
-    if(!this.collision(-1,0,this.activeTetromino))
+    if(!this.collision(-1,0,this.activeFigure))
     {
         this.unDraw();
         this.x--;
@@ -127,9 +127,9 @@ Piece.prototype.moveLeft=function()
 
 Piece.prototype.rotate=function()
 {
-    let nextPattern=this.tetromino[(this.tetrominoN+1)%this.tetromino.length];
+    let next=this.figure[(this.N+1)%this.figure.length];
     let kick=0;
-    if(this.collision(0,0,nextPattern))
+    if(this.collision(0,0,next))
     {
         if(this.x>column/2)
         {
@@ -140,23 +140,23 @@ Piece.prototype.rotate=function()
             kick=1;
         }
     }
-    if(!this.collision(kick,0,nextPattern))
+    if(!this.collision(kick,0,next))
     {
         this.unDraw();
         this.x+=kick;
-        this.tetrominoN=(this.tetrominoN+1)%this.tetromino.length;
-        this.activeTetromino=this.tetromino[this.tetrominoN];
+        this.N=(this.N+1)%this.figure.length;
+        this.activeFigure=this.figure[this.N];
         this.draw();
     }
 }
 
 Piece.prototype.lock=function()
 {
-    for(r=0;r<this.activeTetromino.length;r++)
+    for(r=0;r<this.activeFigure.length;r++)
     {
-        for(c=0;c<this.activeTetromino.length;c++)
+        for(c=0;c<this.activeFigure.length;c++)
         {
-            if(!this.activeTetromino[r][c])
+            if(!this.activeFigure[r][c])
             {
                 continue;
             }
