@@ -16,18 +16,21 @@ let direction = 39;
 let speed = 500;    //speed of snake
 let levels = [100, 50, 25, 20, 10];
 lvl = 0;
+
 //randomizing function
 function random(min, max) {
   return Math.random() * (max - min) + min;
 }
 //function for setting an apple
 function setApple() {
-  apple.x = Math.round(random(size, canvas.width - size) / size) * size;
-  apple.y = Math.round(random(size, canvas.height - size) / size) * size;
+  apple.x = Math.round(random(0, canvas.width - size) / size) * size;
+  apple.y = Math.round(random(0, canvas.height - size) / size) * size;
+  //console.count();
   for (let k = 0; k < snake.length; k++) {
     if (snake[k].x === apple.x && snake[k].y === apple.y)
       setApple();
   }
+  //console.countReset();
 }
 //that function draws snake, apple and grid on the board
 function draw() {
@@ -46,40 +49,17 @@ function draw() {
     if (i == 0)
       context.fillStyle = "DarkGreen";
     else
-      context.fillStyle = "green";
+      context.fillStyle = "Green";
     context.fillRect(s.x, s.y, size, size);
   }
-
   window.requestAnimationFrame(draw);
 }
 //main function in the game
 function loop() {
   for (let i = snake.length - 1; i >= 0; i--) {
-    //cheking if snake ate an apple
-    if (i === 0 && snake[i].x === apple.x && snake[i].y === apple.y) {
-      score++;
-      snake.push({});
-      //(canvas.width / size) * (canvas.width / size) 
-      if (snake.length < (canvas.width / size) * (canvas.width / size)) {
-        setApple();
-      }
-      else {
-        if (lvl != 4) {
-          lvl = lvl + 1;
-          size = levels[lvl];
-          snake[0].x = 0;
-          snake[0].y = 0;
-          speed = speed - 100;
-          snake.length = 1;
-          setApple();
-        }
-      }
-      scoreElement.innerHTML = score;
-    }
-
     const s = snake[i];
     if (i == 0) {
-      //cheking direction in which snake's moving
+      //checking direction in which snake's moving
       switch (direction) {
         case 37:
           if (s.x < size)
@@ -119,6 +99,29 @@ function loop() {
     else {
       snake[i].x = snake[i - 1].x;
       snake[i].y = snake[i - 1].y;
+    }
+
+    //cheking if snake ate an apple
+    if (i === 0 && snake[i].x === apple.x && snake[i].y === apple.y) {
+      score++;
+      snake.push({});
+      //snake.push({ x: snake[snake.length - 1].x, y: snake[snake.length - 1].y });
+      //(canvas.width / size) * (canvas.width / size)
+      if (snake.length < (canvas.width / size) * (canvas.width / size)) {
+        setApple();
+      }
+      else {
+        if (lvl != 4) {
+          lvl = lvl + 1;
+          size = levels[lvl];
+          snake[0].x = 0;
+          snake[0].y = 0;
+          speed = speed - 100;
+          snake.length = 1;
+          setApple();
+        }
+      }
+      scoreElement.innerHTML = score;
     }
   }
   window.setTimeout(loop, speed);
