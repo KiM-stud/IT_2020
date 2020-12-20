@@ -6,7 +6,7 @@ const row=20;
 const column=10;
 const t="wheat";
 let score=0;
-
+let tetris=0;
 function drawSquare(x,y,color)
 {
     context.fillStyle=color;
@@ -38,19 +38,31 @@ drawBoard();
 
 const Pieces = 
 [
-    [I,"red"],
-    [J,"orange"],
-    [L,"yellow"],
-    [O,"green"],
-    [S,"cyan"],
-    [Z,"blue"],
-    [T,"purple"]
+    [I],
+    [J],
+    [L],
+    [O],
+    [S],
+    [Z],
+    [T]
+];
+
+const Colors=
+[
+    ["red"],
+    ["orange"],
+    ["yellow"],
+    ["green"],
+    ["cyan"],
+    ["blue"],
+    ["purple"]
 ];
 
 function random()
 {
     let r=Math.floor(Math.random()*Pieces.length);
-    return new Piece(Pieces[r][0],Pieces[r][1]);
+    let q=Math.floor(Math.random()*Colors.length);
+    return new Piece(Pieces[r][0],Colors[q][0]);
 }
 
 let p=random();
@@ -189,9 +201,25 @@ Piece.prototype.lock=function()
             {
                 board[0][c]=t;
             }
-            score+=1;
+            tetris+=1;
         }
     }
+    switch(tetris)
+    {
+    case 1:
+        score+=1;
+        break;
+    case 2:
+        score+=3;
+        break;
+    case 3:
+        score+=6;
+        break;
+    case 4:
+        score+=10;
+        break;
+    }
+    tetris=0;
     drawBoard();
     scoreElement.innerHTML=score;
 }
@@ -231,17 +259,17 @@ function keycheck(e)
     if(e.keyCode==37)
     {
         p.moveLeft();
-        dropStart=Date.now();
+        //dropStart=Date.now();
     }
     else if(e.keyCode==38)
     {
         p.rotate();
-        dropStart=Date.now();
+        //dropStart=Date.now();
     }
     else if(e.keyCode==39)
     {
         p.moveRight();
-        dropStart=Date.now();
+        //dropStart=Date.now();
     }
     else if(e.keyCode==40)
     {
