@@ -1,10 +1,11 @@
-const canvas = document.getElementById('tetrisgame');
-const context = canvas.getContext('2d');
-const size = 50;
+const canvas = document.getElementById("tetrisgame");
+const context = canvas.getContext("2d");
+const scoreElement = document.getElementById("score");
+const size = 30;
 const row=20;
 const column=10;
-const theme="wheat";
-
+const t="wheat";
+let score=0;
 
 function drawSquare(x,y,color)
 {
@@ -19,7 +20,7 @@ for(r=0;r<row;r++)
     board[r]=[];
     for(c=0;c<column;c++)
     {
-        board[r][c]=theme;
+        board[r][c]=t;
     }
 }
 function drawBoard()
@@ -35,24 +36,24 @@ function drawBoard()
 
 drawBoard();
 
-const Pieces=
+const Pieces = 
 [
     [I,"red"],
     [J,"orange"],
     [L,"yellow"],
     [O,"green"],
-    [S,"blue"],
-    [Z,"indigo"]
-    [T,"violet"]
+    [S,"cyan"],
+    [Z,"blue"],
+    [T,"purple"]
 ];
 
-function randomPiece()
+function random()
 {
-    let r=Math.floor(Math.random()*Pieces.lenght);
-    return new Pieces(Pieces[r,0],Pieces[r,1]);
+    let r=Math.floor(Math.random()*Pieces.length);
+    return new Piece(Pieces[r][0],Pieces[r][1]);
 }
 
-let p=randomPiece();
+let p=random();
 
 function Piece(tetromino, color)
 {
@@ -67,9 +68,9 @@ function Piece(tetromino, color)
 
 Piece.prototype.fill=function(color)
 {
-    for(r=0;r<this.activeTetromino.lenght;r++)
+    for(r=0;r<this.activeTetromino.length;r++)
     {
-        for(c=0;r<this.activeTetromino.lenght;c++)
+        for(c=0;c<this.activeTetromino.length;c++)
         {
             if(this.activeTetromino[r][c])
             {
@@ -86,12 +87,12 @@ Piece.prototype.draw=function()
 
 Piece.prototype.unDraw=function()
 {
-    this.fill(theme);
+    this.fill(t);
 }
 
 Piece.prototype.moveDown=function()
 {
-    if(this.collision(0,1,this.activeTetromino))
+    if(!this.collision(0,1,this.activeTetromino))
     {
         this.unDraw();
         this.y++;
@@ -100,7 +101,7 @@ Piece.prototype.moveDown=function()
     else
     {
         this.lock();
-        p=randomPiece();
+        p=random();
     }
 }
 
@@ -126,6 +127,142 @@ Piece.prototype.moveLeft=function()
 
 Piece.prototype.rotate=function()
 {
-    
+    let nextPattern=this.tetromino[(this.tetrominoN+1)%this.tetromino.length];
+    let kick=0;
+    if(this.collision(0,0,nextPattern))
+    {
+        if(this.x>column/2)
+        {
+            kick=-1;
+        }
+        else
+        {
+            kick=1;
+        }
+    }
+    if(!this.collision(kick,0,nextPattern))
+    {
+        this.unDraw();
+        this.x+=kick;
+        this.tetrominoN=(this.tetrominoN+1)%this.tetromino.length;
+        this.activeTetromino=this.tetromino[this.tetrominoN];
+        this.draw();
+    }
 }
 
+Piece.prototype.lock=function()
+{
+    for(r=0;r<this.activeTetromino.length;r++)
+    {
+        for(c=0;c<this.activeTetromino.length;c++)
+        {
+            if(!this.activeTetromino[r][c])
+            {
+                continue;
+            }
+            if(this.y+r<0)
+            {
+                gameOver=true;
+                window.alert("Twój Wynik: "+score);
+                window.location.reload();
+            }
+            board[this.y+r][this.x+c]=this.color;
+        }
+    }
+    for(r=0;r<row;r++)
+    {
+        let fullRow=true;
+        for(c=0;c<column;c++)
+        {
+            fullRow=fullRow&&(board[r][c]!=t);
+        }
+        if(fullRow)
+        {
+            for(y=r;y>1;y--)
+            {
+                for(c=0;c<column;c++)
+                {
+                    board[y][c]=board[y-1][c];
+                }
+            }
+            for(c=0;c<column;c++)
+            {
+                board[0][c]=t;
+            }
+            score+=1;
+        }
+    }
+    drawBoard();
+    scoreElement.innerHTML=score;
+}
+
+Piece.prototype.collision=function(x,y,piece)
+{
+    for(r=0;r<piece.length;r++)
+    {
+        for(c=0;c<piece.length;c++)
+        {
+            if(!piece[r][c])
+            {
+                continue;
+            }
+            let newX=this.x+c+x;
+            let newY=this.y+r+y;
+            if(newX<0 || newX>=column || newY>=row)
+            {
+                return true;
+            }
+            if(newY<0)
+            {
+                continue;
+            }
+            if(board[newY][newX]!=t)
+            {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+document.addEventListener("keydown",keycheck);
+function keycheck(e)
+{
+    if(e.keyCode==37)
+    {
+        p.moveLeft();
+        dropStart=Date.now();
+    }
+    else if(e.keyCode==38)
+    {
+        p.rotate();
+        dropStart=Date.now();
+    }
+    else if(e.keyCode==39)
+    {
+        p.moveRight();
+        dropStart=Date.now();
+    }
+    else if(e.keyCode==40)
+    {
+        p.moveDown();
+    }
+}
+
+let dropStart=Date.now();
+let gameOver=false;
+function drop()
+{
+    let now=Date.now();
+    let delta=now-dropStart;
+    if(delta>1000)
+    {
+        p.moveDown();
+        dropStart=Date.now();
+    }
+    if(!gameOver)
+    {
+        requestAnimationFrame(drop);
+    }
+}
+drop();

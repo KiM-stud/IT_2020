@@ -1,7 +1,8 @@
-const canvas = document.getElementById('snakegame');
+const canvas = document.getElementById("snakegame");
+const scoreElement = document.getElementById("score");
 canvas.width = 400;     //window of the game, it's need to be a square
 canvas.height = 400;
-const context = canvas.getContext('2d');
+const context = canvas.getContext("2d");
 const size = 25;    //size of the square, it's need to be a devider of width and height
 const xEnd = canvas.width    //end of each axis
 const yEnd = canvas.height;
@@ -11,7 +12,7 @@ const t=1;
 context.lineWidth=t;
 const snake = [{x: 0, y: 0}];
 const apple = {};
-let direction = 'right';
+let direction = 39;
 let speed = 125;    //speed of snake
 
 //randomizing function
@@ -40,13 +41,13 @@ function draw()
       drawLine2(0, k*size);
   }
   drawBorder(apple.x, apple.y, size, size);
-  context.fillStyle = 'red';
+  context.fillStyle = "red";
   context.fillRect(apple.x, apple.y, size, size);  
   for (let i = 0; i < snake.length; i ++)
   {
     const s = snake[i];
     drawBorder(s.x, s.y, size, size);
-    context.fillStyle = 'darkgreen';
+    context.fillStyle = "darkgreen";
     context.fillRect(s.x, s.y, size, size);
   }
 
@@ -63,6 +64,7 @@ function loop()
         score++;
         snake.push({});
         setApple();
+        scoreElement.innerHTML=score;
     }
 
     const s = snake[i];
@@ -71,31 +73,30 @@ function loop()
     //cheking direction in which snake's moving
       switch(direction) 
       {
-        case 'right':
-          if (s.x >= xEnd-size) 
-            s.x = 0;
-          else 
-          s.x += size;
-        break;
-        case 'down':
-          if (s.y >= yEnd-size) 
-            s.y = 0;
-          else 
-            s.y += size;
-        break;
-        case 'left':
+        case 37:
           if (s.x < size) 
             s.x = xEnd-size;
           else 
           s.x -= size;
         break;
-        case 'up':
+        case 38:
           if (s.y < size) 
             s.y = yEnd-size;
           else 
             s.y -= size;
-        default: 
-          break;
+        break;
+        case 39:
+          if (s.x >= xEnd-size) 
+            s.x = 0;
+          else 
+          s.x += size;
+        break;
+        case 40:
+          if (s.y >= yEnd-size) 
+            s.y = 0;
+          else 
+            s.y += size;
+        break;
       }
       //checking if snake hit itself
       for (let j=1; j<snake.length; j++) 
@@ -124,29 +125,26 @@ function checkkey(e)
   if (!directionLock) 
   {
     directionLock = true;
-    
-    
-      const newDirection = e.key.substr(5).toLowerCase();
-      //checking if player pressed an arrow
-      if(newDirection==='right' || newDirection === 'down' || newDirection === 'up' || newDirection === 'left')
-      {
-        //cheking if player wants to go to opposite direction
-        if (direction === 'left' && newDirection !== 'right') 
-            direction = newDirection;
-        if (direction === 'up' && newDirection !== 'down') 
-            direction = newDirection;
-        if (direction === 'down' && newDirection !== 'up') 
-            direction = newDirection;
-        if (direction === 'right' && newDirection !== 'left') 
-            direction = newDirection;
-      }
-    
+    const newDirection = e.keyCode;
+    //checking if player pressed an arrow
+    if(newDirection>36 && newDirection<41)
+    {
+      //cheking if player wants to go to opposite direction
+      if (direction ==37 && newDirection != 39) 
+          direction = newDirection;
+      if (direction ==38 && newDirection !=40) 
+          direction = newDirection;
+      if (direction ==40 && newDirection !=38) 
+          direction = newDirection;
+      if (direction ==39 && newDirection !=37) 
+          direction = newDirection;
+    }
   }
 }
 //that functions draw border of the square and grid on board
 function drawBorder(x, y, W, H)
 {
-    context.fillStyle='black';
+    context.fillStyle="black";
     context.fillRect(x-t, y-t, W+2*t, H+2*t);
 }
 
@@ -167,6 +165,6 @@ function drawLine2(x, y)
 
 
 setApple();
-window.addEventListener('keydown', checkkey);
+window.addEventListener("keydown", checkkey);
 window.setTimeout(loop, speed);
 window.requestAnimationFrame(draw);
