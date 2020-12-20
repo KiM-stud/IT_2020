@@ -9,3 +9,4 @@ TODO:
 -database
 -logo
 -more stuff
+-hahaha dopisane
