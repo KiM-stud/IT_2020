@@ -72,16 +72,24 @@ const Pieces =
         [T]
     ];
 
-const Colors =
-    [
-        ["red"],
-        ["orange"],
-        ["yellow"],
-        ["green"],
-        ["cyan"],
-        ["blue"],
-        ["purple"]
-    ];
+const Colors=
+[
+    ["deeppink"],
+    ["blueviolet"],
+    ["indianred"],
+    ["crimson"],
+    ["darkred"],
+    ["darkorange"],
+    ["orangered"],
+    ["gold"],
+    ["yellowgreen"],
+    ["forestgreen"],
+    ["darkturquoise"],
+    ["cadetblue"],
+    ["deepskyblue"],
+    ["midnightblue"],
+    ["saddlebrown"]
+];
 
 function random() {
     let r = Math.floor(Math.random() * Pieces.length);
