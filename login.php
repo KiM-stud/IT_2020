@@ -70,6 +70,7 @@
   <?php
   if(isset($_SESSION['blad']))
     echo $_SESSION['blad'];
+    unset($_SESSION['blad']);
   ?>
   <p>Nie masz konta? <a href="register.php" target="_self">Zarejestruj się!</a></p>
   </div>
