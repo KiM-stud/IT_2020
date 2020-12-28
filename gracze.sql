@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 22 Gru 2020, 13:16
+-- Czas generowania: 28 Gru 2020, 06:24
 -- Wersja serwera: 10.4.17-MariaDB
 -- Wersja PHP: 8.0.0
 
@@ -41,8 +41,8 @@ CREATE TABLE `gracze` (
 --
 
 INSERT INTO `gracze` (`id`, `login`, `haslo`, `email`, `snakepkt`, `tetrispkt`) VALUES
-(1, 'Mati', 'cococo', 'mati@interia.pl', 0, 0),
-(2, 'Oklej', 'hehehe', 'oklej@coco', 0, 0);
+(1, 'Mati', '$2y$10$3tqCh5rC1NLAO1q5.SCLZ.ldqzgU7LSoX1vwAHiLgEHVo7W2HHHia', 'mati@interia.pl', 0, 0),
+(2, 'Oklej', '$2y$10$0wEjabnL4KKRzGf9ySVDp.zq2pEudzTIkssDbERBlKJPYG4Db4rB2', 'yolo@69.com', 0, 0);
 
 --
 -- Indeksy dla zrzutów tabel
@@ -62,7 +62,7 @@ ALTER TABLE `gracze`
 -- AUTO_INCREMENT dla tabeli `gracze`
 --
 ALTER TABLE `gracze`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

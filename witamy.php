@@ -1,12 +1,16 @@
 <?php
   session_start();
-  if((isset($_SESSION['zalogowany'])) && ($_SESSION['zalogowany']==true))
-  {
-    header('Location:account.php');
+//tylko zalogowany user
+  /*
+  if(!isset($_SESSION['udanarejestracja'])){
+    header('Location:index.php');
     exit();
   }
+  else{
+    unset($_SESSION['udanarejestracja']);
+  }
+  */
 ?>
-
 <!doctype html>
 <html lang="en">
 
@@ -50,29 +54,15 @@
           </div>
         </li>
       </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="login.php">Logowanie</a>
+        </li>
+      </ul>
     </div>
   </nav>
-  <div class="container" style="text-align: center; margin-top: 3vmin;">
-  <?php
-    if((isset($_SESSION['zgry'])) && ($_SESSION['zgry']==true))
-    {
-      echo "<h3>Zaloguj się aby grać w najlepsze gry!</h3>";
-    }
-  ?>
-  </div>
-  <div class="container" style="text-align: center; margin-top: 3vmin;">
-    <form action="logincheck.php" method="post">
-        Login:<br /><input type="text" name="login" placeholder="Twój login" required><br>
-        Hasło:<br /><input type="password" name="haslo" placeholder="Twoje hasło" required><br><br>
-        <input type="submit" value="Zaloguj się">
-        <br>
-    </form>
-  <?php
-  if(isset($_SESSION['blad']))
-    echo $_SESSION['blad'];
-  ?>
-  <p>Nie masz konta? <a href="register.php" target="_self">Zarejestruj się!</a></p>
-  </div>
-  
+  <div class="text" style="text-align: center; margin-top: 3vmin;">
+    <p>Dziękujemy za rejestrację w serwisie. Możesz zalogować się na konto!</p>
+  </div> 
 </body>
 </html>
