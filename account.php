@@ -1,3 +1,11 @@
+<?php
+  session_start();
+//tylko zalogowany user
+  if(!isset($_SESSION['zalogowany'])){
+    header('Location:login.php');
+    exit();
+  }
+?>
 <!doctype html>
 <html lang="en">
 
@@ -20,7 +28,7 @@
     integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
     crossorigin="anonymous"></script>
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a href="#" class="navbar-brand">MO Games</a>
+    <a href="#" class="navbar-brand"><b>MO Games</b></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
       aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -28,13 +36,7 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item ">
-          <a class="nav-link" href="index.html">Strona Główna <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item ">
-          <a class="nav-link" href="login.php">Logowanie</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="register.html">Rejestracja</a>
+          <a class="nav-link" href="index.php">Strona Główna <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
           <a class="nav-link" href="account.php">Twoje konto</a>
@@ -45,15 +47,24 @@
             Gry
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="snake.html">Snake</a>
-            <a class="dropdown-item" href="tetris.html">Tetris</a>
+            <a class="dropdown-item" href="snake.php">Snake</a>
+            <a class="dropdown-item" href="tetris.php">Tetris</a>
           </div>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="navbar-text">Zalogowany jako <?php echo $_SESSION['user'];?> !</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="logout.php">Wyloguj</a>
         </li>
       </ul>
     </div>
   </nav>
+  
   <?php
-    session_start();
+   
     echo "<p>Witaj ".$_SESSION['user']."!</p>";
   
   
