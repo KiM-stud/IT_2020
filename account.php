@@ -1,8 +1,9 @@
 <?php
   session_start();
-//tylko zalogowany user
-  if(!isset($_SESSION['zalogowany'])){
-    header('Location:login.php');
+  //sprawdzenie czy ktos po linku nie probowal wejsc
+  if(!(isset($_SESSION['log'])&&($_SESSION['log']==true)))
+  { 
+    header('Location: index.php');
     exit();
   }
 ?>
@@ -16,7 +17,7 @@
     integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
   <title>
-    Logowanie
+    Twoje Konto
   </title>
 </head>
 
@@ -28,7 +29,7 @@
     integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
     crossorigin="anonymous"></script>
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a href="#" class="navbar-brand"><b>MO Games</b></a>
+    <a href="#" class="navbar-brand">MO Games</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
       aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -37,6 +38,15 @@
       <ul class="navbar-nav">
         <li class="nav-item ">
           <a class="nav-link" href="index.php">Strona Główna <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="account.php">Twoje konto</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="logout.php">Wylogowanie</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="deleteaccount.php" onclick="return confirm_delete()">Usuń konto</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
@@ -49,24 +59,20 @@
           </div>
         </li>
       </ul>
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a class="navbar-text">Zalogowany jako <?php echo $_SESSION['user'];?> !</a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="logout.php">Wyloguj</a>
-        </li>
-      </ul>
     </div>
   </nav>
-  
   <?php
-   
+    
     echo "<p>Witaj ".$_SESSION['user']."!</p>";
   
   
   
   ?>
-  
+<script type="text/javascript">
+function confirm_delete() 
+{
+    return confirm('Jesteś pewny, że chcesz usunąć konto?');
+}
+</script>
 </body>
 </html>
