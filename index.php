@@ -48,6 +48,9 @@
           <a class="navbar-text">Zalogowany jako <?php echo $_SESSION['user'];?> !</a>
         </li>
         <li class="nav-item active">
+          <a class="nav-link" href="account.php">Twoje konto</a>
+        </li>
+        <li class="nav-item active">
           <a class="nav-link" href="logout.php">Wyloguj</a>
         </li>
       </ul>
