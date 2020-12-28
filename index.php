@@ -1,11 +1,7 @@
 <?php
   session_start();
-//tylko zalogowany user
-  if(!isset($_SESSION['zalogowany'])){
-    header('Location:login.php');
-    exit();
-  }
 ?>
+
 <!doctype html>
 <html lang="en">
 
@@ -16,7 +12,7 @@
     integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
   <title>
-    Logowanie
+    MO Games
   </title>
 </head>
 
@@ -35,14 +31,8 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
-        <li class="nav-item ">
-          <a class="nav-link" href="index.php">Strona Główna <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="account.php">Twoje konto</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+        <li class="nav-item dropdown active">
+          <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             Gry
           </a>
@@ -52,6 +42,7 @@
           </div>
         </li>
       </ul>
+      <?php if(isset($_SESSION['zalogowany'])): ?>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
           <a class="navbar-text">Zalogowany jako <?php echo $_SESSION['user'];?> !</a>
@@ -60,16 +51,46 @@
           <a class="nav-link" href="logout.php">Wyloguj</a>
         </li>
       </ul>
+      <?php else: ?>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="login.php">Logowanie</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="register.php">Rejestracja</a>
+        </li>
+      </ul>
+      <?php endif ?>
     </div>
   </nav>
-  
-  <?php
-   
-    echo "<p>Witaj ".$_SESSION['user']."!</p>";
-  
-  
-  
-  ?>
-  
+  <div class="container" style="text-align: center; margin-top: 10vmin;">
+    <h1 style="font-family: 'Times New Roman', Times, serif">
+      Dostępne gry:
+    </h1>
+    <div id="karuzela" class="carousel slide container" data-ride="carousel"
+      style="width: 50vmin; height: auto; position: relative;">
+      <ol class="carousel-indicators">
+        <li data-target="#karuzela" data-slide-to="0" class="active"></li>
+        <li data-target="#karuzela" data-slide-to="1"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <a href="snake.php"><img src="snakelogo.png" class="thumbnail d-block w-100"></a>
+        </div>
+        <div class="carousel-item">
+          <a href="tetris.php"><img src="tetrislogo.png" class="thumbnail d-block w-100"></a>
+        </div>>
+      </div>
+      <a class="carousel-control-prev" href="#karuzela" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Poprzedni</span>
+      </a>
+      <a class="carousel-control-next" href="#karuzela" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Następny</span>
+      </a>
+    </div>
+  </div>
 </body>
+
 </html>
