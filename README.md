@@ -1,3 +1,5 @@
 # IT_2020
 Student website project
-new branch test
+hasla do kont:
+Mati cocococo
+Oklej 69696969
