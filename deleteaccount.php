@@ -17,8 +17,8 @@
         }
         else
         {
-            $sql="delete from gracze where login='$login'";
-            $polaczenie->query($sql);
+            $polaczenie->query(sprintf("delete from gracze where login='%s'",
+            mysqli_real_escape_string($polaczenie,$login)));
             $polaczenie->close();
             session_unset();
             header('Location: index.php');
