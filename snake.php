@@ -1,13 +1,11 @@
 <?php
   session_start();
-//tylko zalogowany user
   if(!isset($_SESSION['zalogowany'])){
     $_SESSION['zgry']=true;
     header('Location:login.php');
     exit();
   }
 ?>
-
 <!doctype html>
 <html lang="en">
 
@@ -19,6 +17,7 @@
   <title>
     Snake - MO Games
   </title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body style=" background: linear-gradient(to right, lightgreen,khaki);">
@@ -28,7 +27,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
     crossorigin="anonymous"></script>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <a href="#" class="navbar-brand"><b>MO Games</b></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
       aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
