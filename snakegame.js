@@ -169,7 +169,7 @@ function drawLine2(x, y) {
 
 function uploadScore(score) {
   var request = new XMLHttpRequest();
-  request.open("GET", "addsnakepkt.php?snakepkt=" + score);
+  request.open("GET", "addscore.php?pkt=" + score +"&nr=1");
   request.send();
 }
 

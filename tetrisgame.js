@@ -14,6 +14,12 @@ let score = 0;
 let tetris = 0;
 let speed = start_speed;
 
+function uploadScore(score) {
+    var request = new XMLHttpRequest();
+    request.open("GET", "addscore.php?pkt=" + score +"&nr=2");
+    request.send();
+}
+
 function drawSquare(x, y, color) {
     context.fillStyle = color;
     context.fillRect(x * size, y * size, size, size);
@@ -219,6 +225,7 @@ Piece.prototype.lock = function () {
             }
             if (this.y + r < 0) {
                 gameOver = true;
+                uploadScore(score);
                 window.alert("Twój Wynik: " + score);
                 window.location.reload();
             }
