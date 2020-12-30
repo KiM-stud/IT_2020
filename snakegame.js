@@ -89,8 +89,10 @@ function loop() {
       //checking if snake hit itself
       for (let j = 1; j < snake.length; j++) {
         if (snake[0].x === snake[j].x && snake[0].y === snake[j].y) {
+          uploadScore(score);
           window.alert("Twój Wynik: " + score);
           window.location.reload();
+          
         }
       }
 
@@ -165,6 +167,11 @@ function drawLine2(x, y) {
   context.stroke();
 }
 
+function uploadScore(score) {
+  var request = new XMLHttpRequest();
+  request.open("GET", "addsnakepkt.php?snakepkt=" + score);
+  request.send();
+}
 
 setApple();
 window.addEventListener("keydown", checkkey);
