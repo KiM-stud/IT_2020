@@ -59,14 +59,49 @@
       </ul>
     </div>
   </nav>
-  
-  <?php
-   
+  <style>
+    .grid-container {
+      display: grid;
+      grid-template-columns: 200px 900px ;
+      background-color: linear-gradient(to right, lightgreen, khaki);
+      padding: 10px;
+      justify-content: center;
+    }
+
+    .grid-item {
+      background-color: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      font-size: 30px;
+      text-align: center;
+      font-size:large;
+    }
+  </style>
+
+  <div class="container p-3 my-3 bg-primary rounded-lg ">
+    <h3 style="text-align:center;margin-left: -5%; color: white;">
+    <?php
     echo "<p>Witaj ".$_SESSION['user']."!</p>";
-  
-  
-  
-  ?>
-  
+    ?>
+    </h3>
+    
+  <div class="grid-container">
+    <div class="grid-item">
+      <div class="nav flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical">
+        <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Profil</a>
+        <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Twoje rekordy</a>
+        <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Ustawienia profilu</a>
+        <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Usuń profil</a>
+      </div>
+    </div>
+    <div class="grid-item">
+      <div class="tab-content" id="v-pills-tabContent">
+        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">.hdfghfdg.</div>
+        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">.gfdhfghfdg..</div>
+        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">..hdgfgf.</div>
+        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">..gfdghfghdfgh.</div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
