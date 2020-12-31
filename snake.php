@@ -63,13 +63,117 @@
       </ul>
     </div>
   </nav>
-  <div style="width: 65vmin; height: 65 vmin; position: relative; margin-top: 10vmin;" class="container">
-    <canvas id="snakegame" style="background-color:wheat; width: 75%; height: auto; margin-left: 15%;"></canvas>
-    <div class="container" style="display: inline-block; margin-left: 45%;">
-      Score : <div id="score" style="display: inline-block;">0</div>
+  <style>
+  .grid-container {
+      display: grid;
+      grid-template-columns: 400px 565px ;
+      background-color: linear-gradient(to right, lightgreen, khaki);
+      padding: 10px;
+      justify-content: center;
+    }
+
+    .grid-item {
+      background-color: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(0, 0, 0, 0.8);
+      padding: 20px;
+      font-size: 30px;
+      text-align: center;
+      font-size:large;
+    }
+
+    .error{
+        color:red;
+        margin-top:10px;
+        margin-bottom:10px;
+      }
+  </style>
+  <style>
+    table{
+      width: 100%;
+      
+    }
+    table, th, td {
+      font-family: arial, sans-serif;
+      border: 1px solid black;
+      border-collapse: collapse;
+      font-size: medium;
+    }
+    th, td {
+      padding: 5px;
+    }
+    th{
+    color: white;
+    background-color: 	#047cfc;
+    }
+    tr:nth-child(odd) {
+      background-color: #dddddd;
+    }
+  </style>
+  <div class="grid-container">
+    <div class="grid-item">
+      <b>Ranking - top10:</b>
+      <br><br>
+      <table border="1">
+      <tr>
+        <th>Miejsce</th>
+        <th>Nazwa użytkownika</th>
+        <th>Rekord</th>
+      </tr>
+        <?php
+          require_once "connect.php";
+          mysqli_report(MYSQLI_REPORT_STRICT);
+          try
+          {
+              $polaczenie=new mysqli($host,$db_user,$db_password,$db_name);
+              if($polaczenie->connect_errno!=0)
+              {
+                  throw new Exception(msqli_connect_errno());
+              }
+              else
+              {  
+              $lp=1;
+              if($rezultat=$polaczenie->query("select * from gracze order by `gracze`.`snakepkt` DESC")){
+              while( ($wiersz=mysqli_fetch_array($rezultat) ) && ($lp<11) ){//( $wiersz=$rezultat->fetch_assoc() )
+                  ?>
+                  <tr>
+                      <td><?php echo $lp ?></td>
+                      <td><?php echo $wiersz['login'] ?></td>
+                      <td><?php echo $wiersz['snakepkt'] ?></td>
+                  </tr>
+                  <?php 
+                $lp=$lp+1;
+                }
+             }
+            }
+          }
+          catch(Exception $e)
+          {
+            $_SESSION['e_e'] = 'Błąd serwera - nie można zaktualizować rankingu';
+          }
+          $polaczenie->close();
+          ?>
+          </table>
+    
+
     </div>
-    <script type="text/javascript" src="snakegame.js"></script>
-  </div>
+    <div class="grid-item">
+      <div style="width: 65vmin; height: 65 vmin; position: relative; " class="container">
+        <canvas id="snakegame" style="background-color:wheat; width: 75%; height: auto; margin-left: -25%;"></canvas>
+        <div class="container" style="display: inline-block; margin-left: -25%;">
+          Score : <div id="score" style="display: inline-block;">0</div>
+        </div>
+        <script type="text/javascript" src="snakegame.js"></script>
+      </div>
+    </div>
+    <?php
+      //exception error
+      if(isset($_SESSION['e_e'])){
+        echo '<div class="error">'.$_SESSION['e_e'].'</div>';
+        unset($_SESSION['e_e']);
+      }
+    ?> 
+
+  
 </body>
 
 </html>

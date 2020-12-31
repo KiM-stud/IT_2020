@@ -21,32 +21,51 @@
           }
           else
           {
-            $sql="select * from gracze where login='$login'";
-            $rezultat=$polaczenie->query($sql);
-            $wiersz=$rezultat->fetch_assoc();
-            switch($nr)
+            if($rezultat=$polaczenie->query(sprintf("select * from gracze where
+            login='%s'" 
+            ,mysqli_real_escape_string($polaczenie,$_SESSION['user']))))
             {
-                case 1:
-                    
-                    $highscore=$wiersz['snakepkt'];
-                    if($score>$highscore)
-                    {
-                        $sql2="update gracze set snakepkt='$score' where login='$login'";
-                        $polaczenie->query($sql2);
-                    }
-                    break;
-                case 2:
-                    $highscore=$wiersz['tetrispkt'];
-                    if($score>$highscore)
-                    {
-                        $sql2="update gracze set tetrispkt='$score' where login='$login'";
-                        $polaczenie->query($sql2);
-                    }
-                    break;
+                $wiersz=$rezultat->fetch_assoc();
+                switch($nr)
+                {
+                    case 1:
+                        $highscore=$wiersz['snakepkt'];
+                        if($score>$highscore)
+                        {   
+                            if($polaczenie->query(sprintf("update gracze set snakepkt='%s' where login='%s'" 
+                            ,mysqli_real_escape_string($polaczenie,$score)
+                            ,mysqli_real_escape_string($polaczenie,$_SESSION['user']))))
+                            {
+                            
+                            }
+                            else{
+                                throw new Exception(msqli_connect_errno());
+                            }
+                        }
+                        break;
+                    case 2:
+                        $highscore=$wiersz['tetrispkt'];
+                        if($score>$highscore)
+                        {
+                            if($polaczenie->query(sprintf("update gracze set tetrispkt='%s' where login='%s'" 
+                            ,mysqli_real_escape_string($polaczenie,$score)
+                            ,mysqli_real_escape_string($polaczenie,$_SESSION['user']))))
+                            {
+                                
+                            }
+                            else{
+                                throw new Exception(msqli_connect_errno());
+                            }
+                        }
+                        break;
+                }
             }
-            $polaczenie->query($sql2);
+            else{
+                throw new Exception(msqli_connect_errno());
+            }   
             $polaczenie->close();
             unset($_REQUEST['pkt']);
+            unset($_REQUEST['nr']);
             header('Location: index.php');
           }
       }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 28 Gru 2020, 06:24
+-- Czas generowania: 31 Gru 2020, 03:52
 -- Wersja serwera: 10.4.17-MariaDB
 -- Wersja PHP: 8.0.0
 
@@ -41,8 +41,17 @@ CREATE TABLE `gracze` (
 --
 
 INSERT INTO `gracze` (`id`, `login`, `haslo`, `email`, `snakepkt`, `tetrispkt`) VALUES
-(1, 'Mati', '$2y$10$3tqCh5rC1NLAO1q5.SCLZ.ldqzgU7LSoX1vwAHiLgEHVo7W2HHHia', 'mati@interia.pl', 0, 0),
-(2, 'Oklej', '$2y$10$0wEjabnL4KKRzGf9ySVDp.zq2pEudzTIkssDbERBlKJPYG4Db4rB2', 'yolo@69.com', 0, 0);
+(1, 'Mati', '$2y$10$3tqCh5rC1NLAO1q5.SCLZ.ldqzgU7LSoX1vwAHiLgEHVo7W2HHHia', 'mati@interia.pl', 7, 1),
+(2, 'Oklej', '$2y$10$0wEjabnL4KKRzGf9ySVDp.zq2pEudzTIkssDbERBlKJPYG4Db4rB2', 'yolo@69.com', 0, 2),
+(4, '12345678901234567890', '', '', 1000, 1000),
+(5, 'test1', '', '', 32, 22),
+(6, 'test2', '', '', 454, 45),
+(7, 'test3', '', '', 78, 453),
+(8, 'test4', '', '', 11, 1),
+(9, 'test5', '', '', 65, 4),
+(10, 'test6', '', '', 325, 100),
+(11, 'test7', '', '', 9, 90),
+(12, 'jedenasty', '', '', 0, 0);
 
 --
 -- Indeksy dla zrzutów tabel
@@ -62,7 +71,7 @@ ALTER TABLE `gracze`
 -- AUTO_INCREMENT dla tabeli `gracze`
 --
 ALTER TABLE `gracze`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

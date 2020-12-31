@@ -6,6 +6,7 @@
     header('Location:login.php');
     exit();
   }
+  
 ?>
 <!doctype html>
 <html lang="en">
@@ -67,7 +68,7 @@
   <style>
     .grid-container {
       display: grid;
-      grid-template-columns: 200px 400px 200px;
+      grid-template-columns: 400px 400px 200px;
       background-color: linear-gradient(to right, lightgreen, khaki);
       padding: 10px;
       justify-content: center;
@@ -79,11 +80,84 @@
       padding: 20px;
       font-size: 30px;
       text-align: center;
+      font-size:large;
+    }
+
+    .error{
+        color:red;
+        margin-top:10px;
+        margin-bottom:10px;
+      }
+  </style>
+  <style>
+    
+    table{
+      width: 100%;
+      
+    }
+    table, th, td {
+      font-family: arial, sans-serif;
+      border: 1px solid black;
+      border-collapse: collapse;
+      font-size: medium;
+    }
+    th, td {
+      padding: 5px;
+    }
+    th{
+    color: white;
+    background-color: 	#047cfc;
+    }
+    tr:nth-child(odd) {
+      background-color: #dddddd;
     }
   </style>
   <div class="grid-container">
     <div class="grid-item">
-      Ranking placeholder
+      <b>Ranking - top10:</b>
+      <br><br>
+      <table border="1">
+      <tr>
+        <th>Miejsce</th>
+        <th>Nazwa użytkownika</th>
+        <th>Rekord</th>
+      </tr>
+        <?php
+          require_once "connect.php";
+          mysqli_report(MYSQLI_REPORT_STRICT);
+          try
+          {
+              $polaczenie=new mysqli($host,$db_user,$db_password,$db_name);
+              if($polaczenie->connect_errno!=0)
+              {
+                  throw new Exception(msqli_connect_errno());
+              }
+              else
+              {  
+              $lp=1;
+              if($rezultat=$polaczenie->query("select * from gracze order by `gracze`.`tetrispkt` DESC")){
+              while( ($wiersz=mysqli_fetch_array($rezultat) ) && ($lp<11) ){//( $wiersz=$rezultat->fetch_assoc() )
+                  ?>
+                  <tr>
+                      <td><?php echo $lp ?></td>
+                      <td><?php echo $wiersz['login'] ?></td>
+                      <td><?php echo $wiersz['tetrispkt'] ?></td>
+                  </tr>
+                  <?php 
+                $lp=$lp+1;
+                }
+             }
+            }
+          }
+          catch(Exception $e)
+          {
+            $_SESSION['e_e'] = 'Błąd serwera - nie można zaktualizować rankingu';
+          }
+          $polaczenie->close();
+          ?>
+          </table>
+    
+
     </div>
     <div class="grid-item">
       <div class="container">
@@ -98,7 +172,7 @@
 
     <div class="grid-item">
       <div class="container">
-        <p style="color:black"> Next Block: </p>
+        <p style="color:black"> <b>Next Block:</b> </p>
         <canvas id="tetrisnext" width="150" height="150"
           style="center; margin-left: 5%; position: relative; margin-top: 0vmin;">
         </canvas>
@@ -113,6 +187,13 @@
       <script type="text/javascript" src="tetrisfigures.js"></script>
       <script type="text/javascript" src="tetrisgame.js"></script>
     </div>
+    <?php
+      //exception error
+      if(isset($_SESSION['e_e'])){
+        echo '<div class="error">'.$_SESSION['e_e'].'</div>';
+        unset($_SESSION['e_e']);
+      }
+    ?> 
 
 </body>
 
