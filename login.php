@@ -57,6 +57,7 @@
     if((isset($_SESSION['zgry'])) && ($_SESSION['zgry']==true))
     {
       echo "<h3>Zaloguj się aby grać w najlepsze gry!</h3>";
+      uset($_SESSION['zgry']);
     }
   ?>
   </div>
