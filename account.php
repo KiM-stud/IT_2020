@@ -96,12 +96,26 @@
     </div>
     <div class="grid-item">
       <div class="tab-content" id="v-pills-tabContent">
-        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">.hdfghfdg.</div>
-        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">.gfdhfghfdg..</div>
-        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">..hdgfgf.</div>
-        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">..gfdghfghdfgh.</div>
+        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+          Twoje dane:</br>
+        </div>
+        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+          Twoje rekordy:</br>
+        </div>
+        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+          Zmiana danych:</br>
+        </div>
+        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+          <a class="nav-link" style="color: red" href="deleteaccount.php" onclick="return confirm_delete()">Usuń konto</a>
+        </div>
       </div>
     </div>
   </div>
+  <script type="text/javascript">
+  function confirm_delete() 
+  {
+    return confirm('Jesteś pewny, że chcesz usunąć konto?');
+  }
+  </script>
 </body>
 </html>
