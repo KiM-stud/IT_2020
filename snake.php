@@ -63,7 +63,11 @@
       </ul>
     </div>
   </nav>
+  <!--scrolling quick fix for now-->
   <style>
+    html, body {
+      overflow: hidden;
+    }
   .grid-container {
       display: grid;
       grid-template-columns: 400px 565px ;
