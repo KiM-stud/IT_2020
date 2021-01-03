@@ -21,7 +21,7 @@
             //walidacja i sanityzacja przeslanych danych:
             $login = htmlentities($login, ENT_QUOTES, "UTF-8");
         
-            if($rezultat=@$polaczenie->query(sprintf("select * from gracze where
+            if($rezultat=$polaczenie->query(sprintf("select * from gracze where
             login='%s'" ,mysqli_real_escape_string($polaczenie,$login))))
             {
                 $ilosc=$rezultat->num_rows;

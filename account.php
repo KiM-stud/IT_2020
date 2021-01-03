@@ -5,6 +5,65 @@
     header('Location:login.php');
     exit();
   }
+  require_once "connect.php";
+  mysqli_report(MYSQLI_REPORT_STRICT);
+              try{    
+                  $polaczenie=new mysqli($host,$db_user,$db_password,$db_name);
+                  if($polaczenie->connect_errno!=0)
+                  {
+                      throw new Exception(mysqli_connect_errno());
+                  }
+                  else
+                  {
+                      if($rezultat=$polaczenie->query(sprintf("select * from gracze where
+                      login='%s'" ,mysqli_real_escape_string($polaczenie,$_SESSION['user']))))
+                      {
+                          $ilosc=$rezultat->num_rows;
+                          if($ilosc>0)
+                          {
+                            $wiersz=$rezultat->fetch_assoc();
+                            $_SESSION['email'] = $wiersz['email'];
+                            $_SESSION['snakescore'] = $wiersz['snakepkt'];
+                            $_SESSION['tetrisscore'] = $wiersz['tetrispkt'];
+                            if ($polaczenie->query("CREATE VIEW Rankingi AS SELECT ROW_NUMBER() OVER(ORDER BY snakepkt DESC) AS row_number_snake,ROW_NUMBER() OVER(ORDER BY tetrispkt DESC) AS row_number_tetris, login FROM `gracze`") === TRUE) {
+                              if($rezultat=$polaczenie->query(sprintf("SELECT * FROM Rankingi WHERE login='%s'"
+                              ,mysqli_real_escape_string($polaczenie,$_SESSION['user'])))){
+                              $wiersz=$rezultat->fetch_assoc();
+                              $_SESSION['snakerank'] = $wiersz['row_number_snake'];
+                              $_SESSION['tetrisrank']= $wiersz['row_number_tetris'];
+                              $polaczenie->query("DROP VIEW Rankingi");
+                              }
+                              else
+                              {
+                                $_SESSION['blad']='<span style="color: red;">Problem połączenia z bazą.</span>';
+                              }
+                            }
+                            else{
+                              if($rezultat=$polaczenie->query(sprintf("SELECT * FROM Rankingi WHERE login='%s'"
+                              ,mysqli_real_escape_string($polaczenie,$_SESSION['user'])))){
+                              $wiersz=$rezultat->fetch_assoc();
+                              $_SESSION['snakerank'] = $wiersz['row_number_snake'];
+                              $_SESSION['tetrisrank']= $wiersz['row_number_tetris'];
+                              $polaczenie->query("DROP VIEW Rankingi");
+                              }
+                              else
+                              {
+                                $_SESSION['blad']='<span style="color: red;">Problem połączenia z bazą.</span>';
+                              }
+                            }
+                          }
+                          else
+                          {
+                              $_SESSION['blad']='<span style="color: red;">Problem połączenia z bazą.</span>';
+                          }
+                      }
+                      $polaczenie->close();
+                  }
+              }
+              catch(Exception $e){
+                  $_SESSION['blad']='<span style="color:red;">Błąd serwera!</span>'.'<br />Informacja developerska: '.$e;
+              } 
+             
 ?>
 <!doctype html>
 <html lang="en">
@@ -77,6 +136,22 @@
       font-size:large;
     }
   </style>
+  <style>
+    table{
+      max-width: 100%;
+    }
+    table, td, th {
+      font-family: arial, sans-serif;
+      border: 1px solid black;
+      border-collapse: collapse;
+      font-size: medium;
+      padding: 20px;
+    }
+     td {
+      padding: 5px;
+      text-align: left;
+    }
+  </style>
 
   <div class="container p-3 my-3 bg-primary rounded-lg ">
     <h3 style="text-align:center;margin-left: -5%; color: white;">
@@ -97,13 +172,69 @@
     <div class="grid-item">
       <div class="tab-content" id="v-pills-tabContent">
         <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-          Twoje dane:</br>
+          Twoje dane:</br></br>
+        <table align="center">
+          <tr>
+            <th>Nazwa użytkownika:</th>
+            <td><?php echo $_SESSION['user'];?></td>
+          </tr>
+          <tr>
+            <th>Adres email:</th>
+            
+            <td><?php
+              echo $_SESSION['email'];
+              unset($_SESSION['email']);
+            ?></td>
+          </tr>
+        </table>
+        <?php
+          if(isset($_SESSION['blad'])){
+            echo $_SESSION['blad'];
+          }
+        ?>
         </div>
         <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-          Twoje rekordy:</br>
+          Twoje rekordy:</br></br>
+          <table align="center">
+          <tr>
+            <th>Gra:</th>
+            <th>Najwięcej zdobytych punktów:</th>
+            <th>Miejsce w rankingu:</th>
+          </tr>
+          <tr>
+            <td>Snake</td>
+            <td style="text-align:center"><?php
+             echo $_SESSION['snakescore'];
+             unset($_SESSION['snakescore']);
+            ?></td>
+            <td style="text-align:center"><?php
+             echo $_SESSION['snakerank'];
+             unset($_SESSION['snakerank']);
+            ?></td>
+          </tr>
+          <tr>
+            <td>Tetris</td>
+            <td style="text-align:center"><?php
+             echo $_SESSION['tetrisscore'];
+             unset($_SESSION['tetrisscore']);
+            ?></td>
+            <td style="text-align:center"><?php
+             echo $_SESSION['tetrisrank'];
+             unset($_SESSION['tetrisrank']);
+            ?></td>
+          </tr>
+        </table>
+        <?php
+          if(isset($_SESSION['blad'])){
+            echo $_SESSION['blad'];
+            unset($_SESSION['blad']);
+          }
+        ?>
         </div>
         <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
           Zmiana danych:</br>
+          <!-- good luck mati -->
+  
         </div>
         <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
           <a class="nav-link" style="color: red" href="deleteaccount.php" onclick="return confirm_delete()">Usuń konto</a>

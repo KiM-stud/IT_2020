@@ -82,7 +82,7 @@
         </div>
         <div class="carousel-item">
           <a href="tetris.php"><img src="tetrislogo.png" class="thumbnail d-block w-100"></a>
-        </div>>
+        </div>
       </div>
       <a class="carousel-control-prev" href="#karuzela" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
