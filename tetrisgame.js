@@ -18,7 +18,7 @@ function uploadScore(score) {
     var request = new XMLHttpRequest();
     request.open("GET", "addscore.php?pkt=" + score +"&nr=2");
     request.send();
-  }
+}
 
 function drawSquare(x, y, color) {
     context.fillStyle = color;

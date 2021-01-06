@@ -1,6 +1,7 @@
 <?php
   session_start();
 ?>
+
 <!doctype html>
 <html lang="en">
 
@@ -23,42 +24,15 @@
     integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
     crossorigin="anonymous"></script>
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a href="#" class="navbar-brand">MO Games</a>
+    <a href="#" class="navbar-brand"><b>MO Games</b></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
       aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="index.php">Strona Główna <span class="sr-only">(current)</span></a>
-        </li>
-        <?php
-          if(isset($_SESSION['log'])&&($_SESSION['log']==true))
-          {
-            echo<<<END
-            <li class="nav-item">
-              <a class="nav-link" href="account.php">Twoje konto</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="logout.php">Wylogowanie</a>
-            </li>
-            END;
-          }
-          else
-          {
-            echo<<<END
-            <li class="nav-item">
-              <a class="nav-link" href="login.php">Logowanie</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="register.php">Rejestracja</a>
-            </li>
-            END;
-          }
-        ?>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+        <li class="nav-item dropdown active">
+          <a class="nav-link dropdown-toggle " href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             Gry
           </a>
@@ -68,6 +42,28 @@
           </div>
         </li>
       </ul>
+      <?php if(isset($_SESSION['zalogowany'])): ?>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="navbar-text">Zalogowany jako <?php echo $_SESSION['user'];?> !</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="account.php">Twoje konto</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="logout.php">Wyloguj</a>
+        </li>
+      </ul>
+      <?php else: ?>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="login.php">Logowanie</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="register.php">Rejestracja</a>
+        </li>
+      </ul>
+      <?php endif ?>
     </div>
   </nav>
   <div class="container" style="text-align: center; margin-top: 10vmin;">
@@ -86,7 +82,7 @@
         </div>
         <div class="carousel-item">
           <a href="tetris.php"><img src="tetrislogo.png" class="thumbnail d-block w-100"></a>
-        </div>>
+        </div>
       </div>
       <a class="carousel-control-prev" href="#karuzela" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -99,4 +95,5 @@
     </div>
   </div>
 </body>
+
 </html>
