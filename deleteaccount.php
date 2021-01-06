@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if(!(isset($_SESSION['zalogowany'])&&($_SESSION['zalogowany']==true)))
+    if(!(isset($_SESSION['log'])&&($_SESSION['log']==true)))
     { 
         header('Location: index.php');
         exit();
