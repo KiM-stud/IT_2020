@@ -49,8 +49,7 @@
         }
         if($ok==true){
             if($polaczenie->query("update gracze set email='$email' where id='$id'")){
-              echo "<script> window.close();</script>";
-
+                header('Location:account.php');
             }
             else{
                 throw new Exception($polaczenie->error);
@@ -182,6 +181,5 @@
       }
     ?> 
   </form>
-  
 </body>
 </html>

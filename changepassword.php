@@ -49,8 +49,7 @@
         }
         if($ok==true){
             if($polaczenie->query("update gracze set haslo='$haslo_hash' where id='$id'")){
-              echo "<script> window.close();</script>";
-
+                header('Location:account.php');
             }
             else{
                 throw new Exception($polaczenie->error);
@@ -142,7 +141,7 @@
     </div>
   </nav>
   <br><br><br>
-  <form method='post' style="text-align: center; margin-top: 3vmin;" >
+  <form method='post' style="text-align: center; margin-top: 3vmin;">
     Obecne hasło: <br/> <input type="password" placeholder="Twoje hasło" name="prehaslo" value="<?php 
           if(isset($_SESSION['fprehaslo']))
           {
@@ -188,6 +187,5 @@
       }
     ?> 
   </form>
-  
 </body>
 </html>
