@@ -236,9 +236,9 @@
           <br><br>
           <table style="margin-left: auto; margin-right: auto;">
             <tr>
-              <th><a href="changelogin.php" style="text-decoration:none; color:black;">Zmiana loginu</a></th>
-              <th><a href="changemail.php" style="text-decoration:none; color:black;">Zmiana emaila</a></th>
-              <th><a href="changepassword.php" style="text-decoration:none; color:black;">Zmiana hasła</a></th>
+              <th><a href="changelogin.php" style="text-decoration:none; color:black;" onclick="return createTarget(this.target)" target="formtarget">Zmiana loginu</a></th>
+              <th><a href="changemail.php" style="text-decoration:none; color:black;" onclick="return createTarget(this.target)" target="formtarget">Zmiana emaila</a></th>
+              <th><a href="changepassword.php" style="text-decoration:none; color:black;" onclick="return createTarget(this.target)" target="formtarget">Zmiana hasła</a></th>
             </tr>
           </table>
         </div>
@@ -254,5 +254,11 @@
     return confirm('Jesteś pewny, że chcesz usunąć konto?');
   }
   </script>
+  <script type="text/javascript">
+    function createTarget(t){
+    window.open("", t, "width=600,height=550");
+    return true;
+    }
+</script>
 </body>
 </html>

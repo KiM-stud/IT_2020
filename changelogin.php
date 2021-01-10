@@ -55,8 +55,8 @@
         }
         if($ok==true){
             if($polaczenie->query("update gracze set login='$login' where id='$id'")){
+                echo "<script> window.close();</script>";
                 $_SESSION['user']=$login;
-                header('Location:account.php');
             }
             else{
                 throw new Exception($polaczenie->error);
@@ -148,7 +148,7 @@
     </div>
   </nav>
   <br><br><br>
-  <form method='post' style="text-align: center; margin-top: 3vmin;">
+  <form method='post' style="text-align: center; margin-top: 3vmin;" >
     Nowy login: <br/> <input type="text" placeholder="Nowy login" name="newlogin" value="<?php 
           if(isset($_SESSION['fnewlogin']))
           {
@@ -188,5 +188,6 @@
       }
     ?> 
   </form>
+  
 </body>
 </html>
