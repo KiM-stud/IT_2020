@@ -124,6 +124,7 @@
       grid-template-columns: 200px 900px ;
       padding: 10px;
       justify-content: center;
+      grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) );
     }
 
     .grid-item {
@@ -150,100 +151,103 @@
       text-align: left;
     }
   </style>
-
-  <div class="container p-3 my-3 bg-primary rounded-lg ">
-    <h3 style="text-align:center;margin-left: -5%; color: white;">
-    <?php
-    echo "<p>Witaj ".$_SESSION['user']."!</p>";
-    ?>
-    </h3>
-    
-  <div class="grid-container">
-    <div class="grid-item">
-      <div class="nav flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical">
-        <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Profil</a>
-        <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Twoje rekordy</a>
-        <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Ustawienia profilu</a>
-        <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Usuń profil</a>
+  <div style="padding-top:5%;">
+    <div class="container p-3 my-3 bg-primary rounded-lg" >
+      <h3 style="text-align:center;margin-left: -5%; color: white;">
+      <?php
+      echo "<p>Witaj ".$_SESSION['user']."!</p>";
+      ?>
+      </h3>
+      
+    <div class="grid-container" >
+      <div class="row">
+        <div class="grid-item col-sm-4">
+          <div class="nav flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Profil</a>
+            <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Twoje rekordy</a>
+            <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Ustawienia profilu</a>
+            <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Usuń profil</a>
+          </div>
+        </div>
+        <div class="grid-item col-sm-8" >
+          <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+              <span id="tytul">Twoje dane:</span></br>
+            <table style="margin-left: auto; margin-right: auto;">
+              <tr>
+                <th>Nazwa użytkownika:</th>
+                <td><?php echo $_SESSION['user'];?></td>
+              </tr>
+              <tr>
+                <th>Adres email:</th>
+                
+                <td><?php
+                  echo $_SESSION['email'];
+                  unset($_SESSION['email']);
+                ?></td>
+              </tr>
+            </table>
+            <?php
+              if(isset($_SESSION['blad'])){
+                echo $_SESSION['blad'];
+              }
+            ?>
+            </div>
+            <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+              <span id="tytul">Twoje rekordy:</span></br>
+              <table style="margin-left: auto; margin-right: auto;">
+              <tr>
+                <th>Gra:</th>
+                <th>Najwięcej zdobytych punktów:</th>
+                <th>Miejsce w rankingu:</th>
+              </tr>
+              <tr>
+                <td>Snake</td>
+                <td style="text-align:center"><?php
+                echo $_SESSION['snakescore'];
+                unset($_SESSION['snakescore']);
+                ?></td>
+                <td style="text-align:center"><?php
+                echo $_SESSION['snakerank'];
+                unset($_SESSION['snakerank']);
+                ?></td>
+              </tr>
+              <tr>
+                <td>Tetris</td>
+                <td style="text-align:center"><?php
+                echo $_SESSION['tetrisscore'];
+                unset($_SESSION['tetrisscore']);
+                ?></td>
+                <td style="text-align:center"><?php
+                echo $_SESSION['tetrisrank'];
+                unset($_SESSION['tetrisrank']);
+                ?></td>
+              </tr>
+            </table>
+            <?php
+              if(isset($_SESSION['blad'])){
+                echo $_SESSION['blad'];
+                unset($_SESSION['blad']);
+              }
+            ?>
+            </div>
+            <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+              <span id="tytul">Zmiana danych:</span></br>
+              <table style="margin-left: auto; margin-right: auto;">
+                <tr>
+                  <th><a class="btn btn-outline-primary" href="changelogin.php" style="text-decoration:none; color:black;" onclick="return createTarget(this.target)" target="formtarget">Zmiana loginu</a></th>
+                  <th><a class="btn btn-outline-primary" href="changemail.php" style="text-decoration:none; color:black;" onclick="return createTarget(this.target)" target="formtarget">Zmiana emaila</a></th>
+                  <th><a class="btn btn-outline-primary" href="changepassword.php" style="text-decoration:none; color:black;" onclick="return createTarget(this.target)" target="formtarget">Zmiana hasła</a></th>
+                </tr>
+              </table>
+            </div>
+            <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+              <a class="nav-link" id="usun" href="deleteaccount.php" onclick="return confirm_delete()"><span class="btn btn-outline-danger btn-lg">Usuń konto</span></a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="grid-item" >
-      <div class="tab-content" id="v-pills-tabContent">
-        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-          <span id="tytul">Twoje dane:</span></br></br>
-        <table style="margin-left: auto; margin-right: auto;">
-          <tr>
-            <th>Nazwa użytkownika:</th>
-            <td><?php echo $_SESSION['user'];?></td>
-          </tr>
-          <tr>
-            <th>Adres email:</th>
-            
-            <td><?php
-              echo $_SESSION['email'];
-              unset($_SESSION['email']);
-            ?></td>
-          </tr>
-        </table>
-        <?php
-          if(isset($_SESSION['blad'])){
-            echo $_SESSION['blad'];
-          }
-        ?>
-        </div>
-        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-          <span id="tytul">Twoje rekordy:</span></br></br>
-          <table style="margin-left: auto; margin-right: auto;">
-          <tr>
-            <th>Gra:</th>
-            <th>Najwięcej zdobytych punktów:</th>
-            <th>Miejsce w rankingu:</th>
-          </tr>
-          <tr>
-            <td>Snake</td>
-            <td style="text-align:center"><?php
-             echo $_SESSION['snakescore'];
-             unset($_SESSION['snakescore']);
-            ?></td>
-            <td style="text-align:center"><?php
-             echo $_SESSION['snakerank'];
-             unset($_SESSION['snakerank']);
-            ?></td>
-          </tr>
-          <tr>
-            <td>Tetris</td>
-            <td style="text-align:center"><?php
-             echo $_SESSION['tetrisscore'];
-             unset($_SESSION['tetrisscore']);
-            ?></td>
-            <td style="text-align:center"><?php
-             echo $_SESSION['tetrisrank'];
-             unset($_SESSION['tetrisrank']);
-            ?></td>
-          </tr>
-        </table>
-        <?php
-          if(isset($_SESSION['blad'])){
-            echo $_SESSION['blad'];
-            unset($_SESSION['blad']);
-          }
-        ?>
-        </div>
-        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-          <span id="tytul">Zmiana danych:</span></br>
-          <br><br>
-          <table style="margin-left: auto; margin-right: auto;">
-            <tr>
-              <th><a href="changelogin.php" style="text-decoration:none; color:black;" onclick="return createTarget(this.target)" target="formtarget">Zmiana loginu</a></th>
-              <th><a href="changemail.php" style="text-decoration:none; color:black;" onclick="return createTarget(this.target)" target="formtarget">Zmiana emaila</a></th>
-              <th><a href="changepassword.php" style="text-decoration:none; color:black;" onclick="return createTarget(this.target)" target="formtarget">Zmiana hasła</a></th>
-            </tr>
-          </table>
-        </div>
-        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
-          <a class="nav-link" id="usun" href="deleteaccount.php" onclick="return confirm_delete()">Usuń konto</a>
-        </div>
-      </div>
     </div>
   </div>
   <script type="text/javascript">
