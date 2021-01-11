@@ -82,7 +82,6 @@
     }
 
     .grid-item {
-   
       /* border: 1px solid rgba(0, 0, 0, 0.8);*/
       background-color: rgba(255, 255, 255, 0.8);
       padding: 20px;
@@ -119,7 +118,6 @@
       background-color: #dddddd;
     }
   </style>
-  <div style="postion:relative;margin-left:auto;margin-right:auto;width:90vmin">
   <div class="grid-container-big">
   <div class="container-fluid p-3 my-3 bg-primary rounded-lg" style="padding-top:5%; width:auto;height:auto;">
     <div class="grid-container">
@@ -156,8 +154,30 @@
                     <?php 
                   $lp=$lp+1;
                   }
-              }
-              }
+                  if($rezultat=$polaczenie->query(sprintf("select * from gracze where
+                      login='%s'" ,mysqli_real_escape_string($polaczenie,$_SESSION['user']))))
+                      {
+                          $ilosc=$rezultat->num_rows;
+                          if($ilosc>0)
+                          {
+                            $wiersz=$rezultat->fetch_assoc();
+                            $_SESSION['snakescore'] = $wiersz['snakepkt'];
+                          }
+                          else
+                          {
+                            throw new Exception(msqli_connect_errno());
+                          }
+                      }
+                      else
+                      {
+                        throw new Exception(msqli_connect_errno());
+                      }
+                }
+                else
+                {
+                  throw new Exception(msqli_connect_errno());
+                }
+                }
             }
             catch(Exception $e)
             {
@@ -166,12 +186,15 @@
             $polaczenie->close();
             ?>
             </table>
-      
+            </br>
+            <p style="color:black"> 
+                Twój najlepszy wynik: <?php echo $_SESSION['snakescore']; unset($_SESSION['snakescore']); ?>
+            </p>
 
       </div>
       <div class="grid-item">
         <div style="position: relative; " class="container">
-          <canvas id="snakegame" style="background-color:wheat; margin-left: -0%;"></canvas>
+          <canvas id="snakegame" style="background-color:wheat; width: 582.8px; height: 582.8px; margin-left: -0%;"></canvas>
           <div class="container" style="display: inline-block; margin-left: -0%;">
             Score : <div id="score" style="display: inline-block;">0</div>
           </div>
@@ -180,7 +203,7 @@
       </div>
     </div>
   </div>
-  </div>
+
     <?php
       //exception error
       if(isset($_SESSION['e_e'])){
@@ -188,8 +211,24 @@
         unset($_SESSION['e_e']);
       }
     ?> 
-</div>
+
 </div>  
 </body>
-
+<footer class="bg-primary text-white text-center text-lg-start ">
+  <!-- Grid container -->
+  <div class="container p-4">
+    <!--Grid row-->
+    <div class="row">
+        <p>
+          Projekt wykonanany w ramach przedmiotu IT, którego celem było stworzenie strony internetowej.
+           Tematem było stworzenie strony z grami z działającym systemem logowania oraz rankingiem graczy. Wykonany przez sekcję 313, w której skład wchodzą: Dominik Oklejewicz i Mateusz Dera w roku akademickim 2020/2021.
+        </p>
+    </div>
+  </div>
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+    © 2020 Copyright: Dominik Oklejewicz i Mateusz Dera
+  </div>
+  <!-- Copyright -->
+</footer>
 </html>

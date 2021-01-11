@@ -97,7 +97,7 @@
     <a href="#" class="navbar-brand"><b>MO Games</b></a>
     
   </nav>
-  <br><br><br>
+  <br>
   <form method='post' style="text-align: center; margin-top: 3vmin;">
   <span id="zmiana">Nowy email:</span> <br/> <input type="text" placeholder="Nowy email" name="newmail" value="<?php 
           if(isset($_SESSION['fnewmail']))

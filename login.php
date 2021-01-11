@@ -77,10 +77,29 @@
         unset($_SESSION['blad']);
       }
       ?>
-      <p style="text-align: center;"><span id="zmiana">Nie masz konta?</span> <a href="register.php" target="_self">Zarejestruj się!</a></p>
+      </br>
+      <p style="text-align: center;">Nie masz konta?<a href="register.php" target="_self">Zarejestruj się!</a></p>
       </form>
+      </br>
     </div>
     <div class="grid-item col-sm-5"></div>
   </div>
 </body>
+<footer class="bg-primary text-white text-center text-lg-start ">
+  <!-- Grid container -->
+  <div class="container p-4">
+    <!--Grid row-->
+    <div class="row">
+        <p>
+          Projekt wykonanany w ramach przedmiotu IT, którego celem było stworzenie strony internetowej.
+           Tematem było stworzenie strony z grami z działającym systemem logowania oraz rankingiem graczy. Wykonany przez sekcję 313, w której skład wchodzą: Dominik Oklejewicz i Mateusz Dera w roku akademickim 2020/2021.
+        </p>
+    </div>
+  </div>
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+    © 2020 Copyright: Dominik Oklejewicz i Mateusz Dera
+  </div>
+  <!-- Copyright -->
+</footer>
 </html>

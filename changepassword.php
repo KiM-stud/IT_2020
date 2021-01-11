@@ -97,7 +97,7 @@
     <a href="#" class="navbar-brand"><b>MO Games</b></a>
     
   </nav>
-  <br><br><br>
+  <br>
   <form method='post' style="text-align: center; margin-top: 3vmin;" >
   <span id="zmiana">Obecne hasło:</span> <br/> <input type="password" placeholder="Twoje hasło" name="prehaslo" value="<?php 
           if(isset($_SESSION['fprehaslo']))

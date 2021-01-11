@@ -120,16 +120,6 @@
 
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
-  <style>
-      
-      .g-recaptcha{
-        margin-top:10px;
-        margin-bottom:10px;
-        margin-left: auto;
-        margin-right: auto;
-        width: 20em
-      }
-  </style>
 </head>
 
 <body>
@@ -262,4 +252,21 @@
   </div>
   </div>
 </body>
+<footer class="bg-primary text-white text-center text-lg-start ">
+  <!-- Grid container -->
+  <div class="container p-4">
+    <!--Grid row-->
+    <div class="row">
+        <p>
+          Projekt wykonanany w ramach przedmiotu IT, którego celem było stworzenie strony internetowej.
+           Tematem było stworzenie strony z grami z działającym systemem logowania oraz rankingiem graczy. Wykonany przez sekcję 313, w której skład wchodzą: Dominik Oklejewicz i Mateusz Dera w roku akademickim 2020/2021.
+        </p>
+    </div>
+  </div>
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+    © 2020 Copyright: Dominik Oklejewicz i Mateusz Dera
+  </div>
+  <!-- Copyright -->
+</footer>
 </html>
