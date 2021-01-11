@@ -61,15 +61,15 @@
       }
     ?>
   </div>
+  <div class="grid-container">
   <div class="row">
-    <div class="col-sm-5"></div>
-    <div class="col-sm-2 container" style="border: solid 2px rgb(0,123,255);min-width:220px;">
+    <div class="grid-item col-sm-5"></div>
+    <div class="grid-item col-sm-2 " style="border: solid 2px rgb(0,123,255);min-width:220px;">
       <form action="logincheck.php" method="post" style="text-align: center; margin-top: 3vmin;">
           <span id="zmiana">Login:</span><br /><input type="text" name="login" placeholder="Twój login" required><br>
           <span id="zmiana">Hasło:</span><br /><input type="password" name="haslo" placeholder="Twoje hasło" required><br><br>
           <input class="btn btn-outline-primary" type="submit" value="Zaloguj się">
           <br>
-      </form>
       
       <?php
       if(isset($_SESSION['blad'])){
@@ -78,8 +78,9 @@
       }
       ?>
       <p style="text-align: center;"><span id="zmiana">Nie masz konta?</span> <a href="register.php" target="_self">Zarejestruj się!</a></p>
+      </form>
     </div>
-    <div class="col-sm-5"></div>
+    <div class="grid-item col-sm-5"></div>
   </div>
 </body>
 </html>
