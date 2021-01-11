@@ -1,0 +1,52 @@
+input {
+    padding: 5px 10px 5px 10px;
+    border-radius: 8px;
+    border: solid 1px rgb(0,123,255);
+}
+
+form {
+    font-weight: bold;
+}
+
+body {
+    background: linear-gradient(to right, #ada996, #f2f2f2, #dbdbdb, #eaeaea);
+    /*linear-gradient(to right,#00B4DB,#0083B0);
+    linear-gradient(to right,#F7CAC9,#92A8D1);
+    linear-gradient(to right,#7F7FD5,#86A8E7,#91EAE4);
+    linear-gradient(to right,#aa4b6b,#6b6b83,#3b8d99);
+    linear-gradient(to right,#757F9A, #D7DDE8); 
+    linear-gradient(to right,#16A085, #F4D03F); 
+    linear-gradient(to right, lightgreen,khaki);*/ 
+    font-family: 'Times New Roman', serif;
+}
+.error{
+    color:red;
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+#zmiana {
+    color:rgb(0,123,255);
+}
+
+.carousel-inner{
+    border-radius: 10px;
+}
+#tytul {
+    font-size: 125%; 
+    font-weight:bolder; 
+    color:rgb(0,123,255);
+    text-transform:uppercase;
+}
+
+#usun {
+    color:red;
+    font-size: 200%;
+    margin-top: 6%;
+}
+
+#gry {
+    color:rgb(0,123,255);
+    text-transform:uppercase;
+    font-family: 'Georgia',serif;
+}

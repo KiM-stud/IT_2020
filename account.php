@@ -63,94 +63,23 @@
               catch(Exception $e){
                   $_SESSION['blad']='<span style="color:red;">Błąd serwera!</span>'.'<br />Informacja developerska: '.$e;
               } 
-//aktualizacja loginu-------------------------------------------------------
-              if(isset($_POST['newlogin'])){
-                //walidacja i testy danych:
-                $ok=true;
-                //poprawnosc loginu:
-                $user=$_SESSION['user'];
-                $login=$_POST['newlogin'];
-                //sprawdzenie dlugosci loginu
-                if((strlen($login)<3) || (strlen($login)>20)){
-                  $ok=false;
-                  $_SESSION['e_newlogin']='<span style="color: red;">Login musi posiadać od 3 do 20 znaków!</span>';
-                }
-                //sprawdzenie znaków loginu
-                if(ctype_alnum($login)==false){
-                  $ok=false;
-                  $_SESSION['e_newlogin']='<span style="color: red;">Login może składać się tylko z liter i cyfr (bez polskich znaków)!</span>';
-                }
-                
-                $haslo=$_POST["newpass"];
-                $_SESSION['fnewlogin']=$login;
-                $_SESSION['fnewpass']=$haslo;
-                
-                require_once "connect.php";
-                mysqli_report(MYSQLI_REPORT_STRICT);
-                try
-                {
-                  $polaczenie=new mysqli($host,$db_user,$db_password,$db_name);
-                  if($polaczenie->connect_errno!=0)
-                  {
-                    throw new Exception(mysqli_connect_errno());
-                  }
-                  else
-                  {
-                    //czy login jest zarezerwowany?
-                    $rezultat = $polaczenie->query("SELECT id FROM gracze WHERE login='$login'");
-                    if(!$rezultat) throw new Exception($polaczenie->error);
-                    $ile_takich_loginow = $rezultat->num_rows;
-                    if($ile_takich_loginow>0){
-                      $ok=false;
-                      $_SESSION['e_newlogin']='<span style="color: red;">Istnieje już konto o podanym loginie! 
-                      Wybierz inny.</span>';
-                    }
-                    $rezultat=$polaczenie->query("select * from gracze where login='$user'");
-                    $wiersz=$rezultat->fetch_assoc();
-                    $id=$wiersz['id'];
-                    if(!password_verify($haslo,$wiersz['haslo']))
-                    {
-                        $ok=false;
-                        $_SESSION['e_newpass']='<span style="color: red;">Błędne hasło!</span>';
-                    }
-                    if($ok==true){
-                        if($polaczenie->query("update gracze set login='$login' where id='$id'")){
-                            $_SESSION['user']=$login;
-                            header('Location:account.php');
-                        }
-                        else{
-                            throw new Exception($polaczenie->error);
-                        }
-                    }
-                    $polaczenie->close();
-                  }
-                }
-                
-                catch(Exception $e)
-                {
-                  $_SESSION['e_e']="Błąd serwera! Przepraszamy za niedogodności i prosimy o rejestrację w innym terminie!";
-                  //echo '<span style="color:red;">Błąd serwera! Przepraszamy za niedogodności i prosimy o rejestrację w innym terminie!</span>';
-                  echo '<br/>Informacja developerska:'.$e;
-                }
-              
-              }
              
 ?>
 <!doctype html>
-<html lang="en">
+<html lang="en" >
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
     integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="style.css">           
   <title>
-    Logowanie
+    MO-Games: Twoje Konto
   </title>
 </head>
 
-<body style=" background: linear-gradient(to right, lightgreen,khaki);">
+<body >
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
     crossorigin="anonymous"></script>
@@ -193,26 +122,24 @@
     .grid-container {
       display: grid;
       grid-template-columns: 200px 900px ;
-      background-color: linear-gradient(to right, lightgreen, khaki);
       padding: 10px;
       justify-content: center;
     }
 
     .grid-item {
-      background-color: rgba(255, 255, 255, 0.8);
+      background-color: rgb(242,242,242,0.9);
       border: 1px solid rgba(0, 0, 0, 0.8);
       padding: 20px;
       font-size: 30px;
       text-align: center;
       font-size:large;
     }
-  </style>
-  <style>
+  
     table{
       max-width: 100%;
     }
     table, td, th {
-      font-family: arial, sans-serif;
+      /*font-family: arial, sans-serif;*/
       border: 1px solid black;
       border-collapse: collapse;
       font-size: medium;
@@ -240,10 +167,10 @@
         <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Usuń profil</a>
       </div>
     </div>
-    <div class="grid-item">
+    <div class="grid-item" >
       <div class="tab-content" id="v-pills-tabContent">
         <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-          Twoje dane:</br></br>
+          <span id="tytul">Twoje dane:</span></br></br>
         <table style="margin-left: auto; margin-right: auto;">
           <tr>
             <th>Nazwa użytkownika:</th>
@@ -265,7 +192,7 @@
         ?>
         </div>
         <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-          Twoje rekordy:</br></br>
+          <span id="tytul">Twoje rekordy:</span></br></br>
           <table style="margin-left: auto; margin-right: auto;">
           <tr>
             <th>Gra:</th>
@@ -303,81 +230,18 @@
         ?>
         </div>
         <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-          Zmiana danych:</br>
+          <span id="tytul">Zmiana danych:</span></br>
           <br><br>
           <table style="margin-left: auto; margin-right: auto;">
             <tr>
-              <th><!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                  Zmiana loginu
-                </button>
-              </th>
-              <th><a href="changemail.php" style="text-decoration:none; color:black;">Zmiana emaila</a></th>
-              <th><a href="changepassword.php" style="text-decoration:none; color:black;">Zmiana hasła</a></th>
+              <th><a href="changelogin.php" style="text-decoration:none; color:black;" onclick="return createTarget(this.target)" target="formtarget">Zmiana loginu</a></th>
+              <th><a href="changemail.php" style="text-decoration:none; color:black;" onclick="return createTarget(this.target)" target="formtarget">Zmiana emaila</a></th>
+              <th><a href="changepassword.php" style="text-decoration:none; color:black;" onclick="return createTarget(this.target)" target="formtarget">Zmiana hasła</a></th>
             </tr>
           </table>
         </div>
         <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
-          <a class="nav-link" style="color: red" href="deleteaccount.php" onclick="return confirm_delete()">Usuń konto</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Zmiana loginu:</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-                <form method='post' style="text-align: center; margin-top: 3vmin;" id="loginform">
-            Nowy login: <br/> <input type="text" placeholder="Nowy login" name="newlogin" value="<?php 
-                  if(isset($_SESSION['fnewlogin']))
-                  {
-                    echo $_SESSION['fnewlogin'];
-                    unset($_SESSION['fnewlogin']);
-                  }
-                  ?>"/><br/>
-            <?php
-              //login error
-              if(isset($_SESSION['e_newlogin'])){
-                echo '<div class="error">'.$_SESSION['e_newlogin'].'</div>';
-                unset($_SESSION['e_newlogin']);
-              }
-            ?>
-            <br>
-            Potwierdź hasło: <br/> <input type="password" placeholder="Hasło" name="newpass"  value="<?php 
-                  if(isset($_SESSION['fnewpass']))
-                  {
-                    echo $_SESSION['fnewpass'];
-                    unset($_SESSION['fnewpass']);
-                  }
-                  ?>"/><br/>
-            <?php
-              //login error
-              if(isset($_SESSION['e_newpass'])){
-                echo '<div class="error">'.$_SESSION['e_newpass'].'</div>';
-                unset($_SESSION['e_newpass']);
-              }
-            ?>
-            <br>
-            <input type="submit" value="Zmień login">
-            <?php
-              //exception error
-              if(isset($_SESSION['e_e'])){
-                echo '<div class="error">'.$_SESSION['e_e'].'</div>';
-                unset($_SESSION['e_e']);
-              }
-            ?> 
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
-          <button type="submit" class="btn btn-primary" form="loginform" value="Submit" >Zapisz zmiany</button>
+          <a class="nav-link" id="usun" href="deleteaccount.php" onclick="return confirm_delete()">Usuń konto</a>
         </div>
       </div>
     </div>
@@ -388,5 +252,12 @@
     return confirm('Jesteś pewny, że chcesz usunąć konto?');
   }
   </script>
+  <script type="text/javascript">
+    function createTarget(t){
+    window.open("", t, "width=400,height=400,top=200, left=800");
+    return true;
+    }
+</script>
+
 </body>
 </html>
