@@ -168,94 +168,98 @@
       </ul>
     </div>
   </nav>
-  <form method='post' style="text-align: center; margin-top: 3vmin;">
-    Login: <br/> <input type="text" placeholder="Twój login" name="login" value="<?php 
-          if(isset($_SESSION['flogin']))
-          {
-            echo $_SESSION['flogin'];
-            unset($_SESSION['flogin']);
-          }
-          ?>"/><br/>
-    <?php
-      //login error
-      if(isset($_SESSION['e_login'])){
-        echo '<div class="error">'.$_SESSION['e_login'].'</div>';
-        unset($_SESSION['e_login']);
-      }
-    ?>
-    Email: <br/> <input type="text" placeholder="Twój email" name="email" value="<?php 
-          if(isset($_SESSION['femail']))
-          {
-            echo $_SESSION['femail'];
-            unset($_SESSION['femail']);
-          }
-          ?>"/><br/>
-    <?php
-      //email error
-      if(isset($_SESSION['e_email'])){
-        echo '<div class="error">'.$_SESSION['e_email'].'</div>';
-        unset($_SESSION['e_email']);
-      }
-    ?>
-    Hasło: <br/> <input type="password" placeholder="Twoje hasło" name="haslo" value="<?php 
-          if(isset($_SESSION['fhaslo1']))
-          {
-            echo $_SESSION['fhaslo1'];
-            unset($_SESSION['fhaslo1']);
-          }
-          ?>"/><br/>
-    <?php
-      //haslo error
-      if(isset($_SESSION['e_haslo'])){
-        echo '<div class="error">'.$_SESSION['e_haslo'].'</div>';
-        unset($_SESSION['e_haslo']);
-      }
-    ?>
-    Powtórz hasło: <br/> <input type="password" placeholder="Twoje hasło" name="haslo2" value="<?php 
-          if(isset($_SESSION['fhaslo2']))
-          {
-            echo $_SESSION['fhaslo2'];
-            unset($_SESSION['fhaslo2']);
-          }
-          ?>"/><br/>
-    <label>
-      <input type="checkbox" name="regulamin" <?php
-          if(isset($_SESSION['fregulamin']))
-          {
-            echo "checked";
-            unset($_SESSION['fregulamin']);
-          }
-        ?>> Akceptuję regulamin
-    </label>
-    <?php
-      //checkbox error
-      if(isset($_SESSION['e_regulamin'])){
-        echo '<div class="error">'.$_SESSION['e_regulamin'].'</div>';
-        unset($_SESSION['e_regulamin']);
-      }
-    ?>
-      <!-- trzeba jakos ogarnac polozenie recaptchy: -->
-    <div class="g-recaptcha" data-sitekey="6LeuVRcaAAAAAFlGpgTvYmR_5va8o8UuhF-pgtZi"></div>
-    <?php
-      //recaptcha error
-      if(isset($_SESSION['e_bot'])){
-        echo '<div class="error">'.$_SESSION['e_bot'].'</div>';
-        unset($_SESSION['e_bot']);
-      }
-    ?> 
-    <br/>
-    <input type="submit" value="Zarejestruj się">
-    <?php
-      //exception error
-      if(isset($_SESSION['e_e'])){
-        echo '<div class="error">'.$_SESSION['e_e'].'</div>';
-        unset($_SESSION['e_e']);
-      }
-    ?> 
-
-  
-  </form>
-  
-  
+  <div class="grid-container">
+  <div class="row" style="margin-top: 3vmin;">
+    <div class="grid-item col-sm-5"></div>
+    <div class="grid-item col-sm-2" style="border: solid 2px rgb(0,123,255); min-width:330px;">
+    <form method='post' style="text-align: center; margin-top: 3vmin;">
+      <span id="zmiana">Login:</span> <br/> <input type="text" placeholder="Twój login" name="login" value="<?php 
+            if(isset($_SESSION['flogin']))
+            {
+              echo $_SESSION['flogin'];
+              unset($_SESSION['flogin']);
+            }
+            ?>"/><br/>
+      <?php
+        //login error
+        if(isset($_SESSION['e_login'])){
+          echo '<div class="error">'.$_SESSION['e_login'].'</div>';
+          unset($_SESSION['e_login']);
+        }
+      ?>
+        <span id="zmiana">Email:</span> <br/> <input type="text" placeholder="Twój email" name="email" value="<?php 
+            if(isset($_SESSION['femail']))
+            {
+              echo $_SESSION['femail'];
+              unset($_SESSION['femail']);
+            }
+            ?>"/><br/>
+      <?php
+        //email error
+        if(isset($_SESSION['e_email'])){
+          echo '<div class="error">'.$_SESSION['e_email'].'</div>';
+          unset($_SESSION['e_email']);
+        }
+      ?>
+        <span id="zmiana">Hasło:</span> <br/> <input type="password" placeholder="Twoje hasło" name="haslo" value="<?php 
+            if(isset($_SESSION['fhaslo1']))
+            {
+              echo $_SESSION['fhaslo1'];
+              unset($_SESSION['fhaslo1']);
+            }
+            ?>"/><br/>
+      <?php
+        //haslo error
+        if(isset($_SESSION['e_haslo'])){
+          echo '<div class="error">'.$_SESSION['e_haslo'].'</div>';
+          unset($_SESSION['e_haslo']);
+        }
+      ?>
+        <span id="zmiana">Powtórz hasło:</span> <br/> <input type="password" placeholder="Twoje hasło" name="haslo2" value="<?php 
+            if(isset($_SESSION['fhaslo2']))
+            {
+              echo $_SESSION['fhaslo2'];
+              unset($_SESSION['fhaslo2']);
+            }
+            ?>"/><br/>
+      <label>
+        <input type="checkbox" name="regulamin" <?php
+            if(isset($_SESSION['fregulamin']))
+            {
+              echo "checked";
+              unset($_SESSION['fregulamin']);
+            }
+          ?>> <span id="zmiana">Akceptuję regulamin</span>
+      </label>
+      <?php
+        //checkbox error
+        if(isset($_SESSION['e_regulamin'])){
+          echo '<div class="error">'.$_SESSION['e_regulamin'].'</div>';
+          unset($_SESSION['e_regulamin']);
+        }
+      ?>
+        <!-- trzeba jakos ogarnac polozenie recaptchy: -->
+      <div class="g-recaptcha" data-sitekey="6LeuVRcaAAAAAFlGpgTvYmR_5va8o8UuhF-pgtZi" style="height=100%;"></div>
+      <?php
+        //recaptcha error
+        if(isset($_SESSION['e_bot'])){
+          echo '<div class="error">'.$_SESSION['e_bot'].'</div>';
+          unset($_SESSION['e_bot']);
+        }
+      ?> 
+      <input class="btn btn-outline-primary" id="zmiana" type="submit" value="Zarejestruj się">
+      <?php
+        //exception error
+        if(isset($_SESSION['e_e'])){
+          echo '<div class="error">'.$_SESSION['e_e'].'</div>';
+          unset($_SESSION['e_e']);
+        }
+      ?> 
+    </form>
+    <br>
+    </div>
+    <div class="grid-item col-sm-5"></div>
+  </div>
+  </div>
 </body>
 </html>

@@ -99,7 +99,7 @@
   </nav>
   <br><br><br>
   <form method='post' style="text-align: center; margin-top: 3vmin;">
-    Nowy login: <br/> <input type="text" placeholder="Nowy email" name="newmail" value="<?php 
+  <span id="zmiana">Nowy email:</span> <br/> <input type="text" placeholder="Nowy email" name="newmail" value="<?php 
           if(isset($_SESSION['fnewmail']))
           {
             echo $_SESSION['fnewmail'];
@@ -114,7 +114,7 @@
       }
     ?>
     <br>
-    Potwierdź hasło: <br/> <input type="password" placeholder="Hasło" name="newpass"  value="<?php 
+    <span id="zmiana">Potwierdź hasło:</span> <br/> <input type="password" placeholder="Hasło" name="newpass"  value="<?php 
           if(isset($_SESSION['fnewpass']))
           {
             echo $_SESSION['fnewpass'];
@@ -129,7 +129,7 @@
       }
     ?>
     <br>
-    <input type="submit" value="Zmień email">
+    <input class="btn btn-outline-primary" id="zmiana" type="submit" value="Zmień email">
     <?php
       //exception error
       if(isset($_SESSION['e_e'])){

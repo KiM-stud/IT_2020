@@ -53,29 +53,33 @@
     </div>
   </nav>
   <div class="container" style="text-align: center; margin-top: 3vmin;">
-  <?php
-    if((isset($_SESSION['zgry'])) && ($_SESSION['zgry']==true))
-    {
-      echo "<h3>Zaloguj się aby grać w najlepsze gry!</h3>";
-      uset($_SESSION['zgry']);
-    }
-  ?>
+    <?php
+      if((isset($_SESSION['zgry'])) && ($_SESSION['zgry']==true))
+      {
+        echo "<h3>Zaloguj się aby grać w najlepsze gry!</h3>";
+        unset($_SESSION['zgry']);
+      }
+    ?>
   </div>
-  <div class="container" style="text-align: center; margin-top: 3vmin; ">
-    <form action="logincheck.php" method="post">
-        Login:<br /><input type="text" name="login" placeholder="Twój login" required><br>
-        Hasło:<br /><input type="password" name="haslo" placeholder="Twoje hasło" required><br><br>
-        <input type="submit" value="Zaloguj się">
-        <br>
-    </form>
-  <?php
-  if(isset($_SESSION['blad'])){
-    echo $_SESSION['blad'];
-    unset($_SESSION['blad']);
-  }
-  ?>
-  <p>Nie masz konta? <a href="register.php" target="_self">Zarejestruj się!</a></p>
+  <div class="row">
+    <div class="col-sm-5"></div>
+    <div class="col-sm-2 container" style="border: solid 2px rgb(0,123,255);min-width:220px;">
+      <form action="logincheck.php" method="post" style="text-align: center; margin-top: 3vmin;">
+          <span id="zmiana">Login:</span><br /><input type="text" name="login" placeholder="Twój login" required><br>
+          <span id="zmiana">Hasło:</span><br /><input type="password" name="haslo" placeholder="Twoje hasło" required><br><br>
+          <input class="btn btn-outline-primary" type="submit" value="Zaloguj się">
+          <br>
+      </form>
+      
+      <?php
+      if(isset($_SESSION['blad'])){
+        echo $_SESSION['blad'];
+        unset($_SESSION['blad']);
+      }
+      ?>
+      <p style="text-align: center;"><span id="zmiana">Nie masz konta?</span> <a href="register.php" target="_self">Zarejestruj się!</a></p>
+    </div>
+    <div class="col-sm-5"></div>
   </div>
-  
 </body>
 </html>

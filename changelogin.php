@@ -103,7 +103,7 @@
     <a href="#" class="navbar-brand"><b>MO Games</b></a>
     
   </nav>
-  <br><br><br>
+  <br>
   <form method='post' style="text-align: center; margin-top: 3vmin;" >
     <span id="zmiana">Nowy login:</span><br/> <input type="text" placeholder="Nowy login" name="newlogin" value="<?php 
           if(isset($_SESSION['fnewlogin']))
@@ -135,7 +135,7 @@
       }
     ?>
     <br>
-    <input id="zmiana" type="submit" value="Zmień login">
+    <input class="btn btn-outline-primary" id="zmiana" type="submit" value="Zmień login">
     <?php
       //exception error
       if(isset($_SESSION['e_e'])){

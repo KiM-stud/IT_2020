@@ -99,7 +99,7 @@
   </nav>
   <br><br><br>
   <form method='post' style="text-align: center; margin-top: 3vmin;" >
-    Obecne hasło: <br/> <input type="password" placeholder="Twoje hasło" name="prehaslo" value="<?php 
+  <span id="zmiana">Obecne hasło:</span> <br/> <input type="password" placeholder="Twoje hasło" name="prehaslo" value="<?php 
           if(isset($_SESSION['fprehaslo']))
           {
             echo $_SESSION['fprehaslo'];
@@ -113,7 +113,7 @@
         unset($_SESSION['e_prehaslo']);
       }
     ?>
-    Nowe hasło: <br/> <input type="password" placeholder="Nowe hasło" name="newhaslo1" value="<?php 
+    <span id="zmiana">Nowe hasło:</span> <br/> <input type="password" placeholder="Nowe hasło" name="newhaslo1" value="<?php 
           if(isset($_SESSION['fnewhaslo1']))
           {
             echo $_SESSION['fnewhaslo1'];
@@ -127,7 +127,7 @@
         unset($_SESSION['e_newhaslo']);
       }
     ?>
-    Potwierdź nowe hasło: <br/> <input type="password" placeholder="Potwierdź nowe hasło" name="newhaslo2" value="<?php 
+    <span id="zmiana">Potwierdź nowe hasło:</span> <br/> <input type="password" placeholder="Potwierdź nowe hasło" name="newhaslo2" value="<?php 
           if(isset($_SESSION['fnewhaslo2']))
           {
             echo $_SESSION['fnewhaslo2'];
@@ -135,7 +135,7 @@
           }
           ?>"/><br/>
     <br>
-    <input type="submit" value="Zmień hasło">
+    <input class="btn btn-outline-primary" id="zmiana" type="submit" value="Zmień hasło">
     <?php
       //exception error
       if(isset($_SESSION['e_e'])){
