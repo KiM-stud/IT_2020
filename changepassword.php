@@ -135,7 +135,7 @@
           }
           ?>"/><br/>
     <br>
-    <input class="btn btn-outline-primary" id="zmiana" type="submit" value="Zmień hasło">
+    <input class="btn btn-outline-primary" type="submit" value="Zmień hasło">
     <?php
       //exception error
       if(isset($_SESSION['e_e'])){
