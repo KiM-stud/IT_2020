@@ -234,7 +234,7 @@
         unset($_SESSION['e_e']);
       }
     ?> 
-
+  </div>
 </body>
 <footer class="bg-primary text-white text-center text-lg-start ">
   <!-- Grid container -->
