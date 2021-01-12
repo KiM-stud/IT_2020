@@ -129,7 +129,7 @@
       }
     ?>
     <br>
-    <input class="btn btn-outline-primary" id="zmiana" type="submit" value="Zmień email">
+    <input class="btn btn-outline-primary" type="submit" value="Zmień email">
     <?php
       //exception error
       if(isset($_SESSION['e_e'])){
