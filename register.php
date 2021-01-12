@@ -237,7 +237,7 @@
           unset($_SESSION['e_bot']);
         }
       ?> 
-      <input class="btn btn-outline-primary" id="zmiana" type="submit" value="Zarejestruj się">
+      <input class="btn btn-outline-primary" type="submit" value="Zarejestruj się">
       <?php
         //exception error
         if(isset($_SESSION['e_e'])){
