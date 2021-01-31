@@ -1,6 +1,7 @@
 # IT_2020
 Student website project
 Instrukcja przygotowania projektu:
+
 1. Należy pobrać oraz zainstalować program XAMPP.
  
 2.W folderze w którym zainstalowaliśmy program XAMPP wchodzimy w folder 'htdocs' i tworzymy folder o dowolnej nazwie, np. 'it'.
