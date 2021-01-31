@@ -22,4 +22,11 @@ Instrukcja przygotowania projektu:
 
 10.Otworzyć nowe okno w przeglądarce internetowej. Wejść na adres folderu stworzonego w punkcie 5 ,np. 'localhost/*nazwa folderu*/' lub 'localhost/it/' dla nazwy przykładowej.
 
-11. Powyższe akcje powinny dać dostęp do funkcjonalności strony.
+11.Powyższe akcje powinny dać dostęp do funkcjonalności strony.
+
+12.Powinna być dostępna możliwość zarejestrowania nowego użytkownika.
+
+13. Można zalogować się również danymi:
+
+Login: Mati
+Hasło: cocococo
